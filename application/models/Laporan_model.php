@@ -22,8 +22,10 @@ class Laporan_model extends CI_Model {
 			$wheregudangreturpembelian = " AND retur_pembelian.idgudang = $idgudang ";
 		}
 		$wheregudangtransferkeluar = '';
+		$wheregudangtransmasuk = '';
 		if($idgudang != '') {
 			$wheregudangtransferkeluar = " AND transfer_barang.idgudang_asal = $idgudang ";
+			$wheregudangtransmasuk = " AND transfer_barang.idgudang_tujuan = $idgudang ";
 		}
 		$wheregudanghilangkeluar = '';
 		if($idgudang != '') {
@@ -69,6 +71,13 @@ INNER JOIN gudang ON gudang.idgudang = retur_pembelian.idgudang
 INNER JOIN pelanggan ON pelanggan.idpelanggan = retur_pembelian.idsupplier
 WHERE retur_pembelian.status = 'active' AND retur_pembelian.nomor_nota IN (SELECT detil_retur_pembelian.nomor_nota FROM detil_retur_pembelian WHERE detil_retur_pembelian.idbarang = $idbarang ) AND retur_pembelian.tanggal >= '$tglawal' AND retur_pembelian.tanggal <= '$tglakhir' $wheregudangreturpembelian
 
+
+UNION 
+SELECT transfer_barang.tanggal AS tanggal, transfer_barang.nomor_nota, '' AS kode, '' as 'namapelanggan', gudang.nama, 'TRANSMASUK' AS tipetrans, transfer_barang.jumlah_besar AS jmlsatuanbesarmasuk, transfer_barang.jumlah_kecil AS jmlsatuankecilmasuk, '' AS hargamasuk, '' AS subtotalmasuk,
+'' AS jmlsatuanbesarkeluar, '' AS jmlsatuankecilkeluar, '' AS hargakeluar, '' AS subtotalkeluar, 'TR' AS 'inisialkode'
+FROM transfer_barang
+INNER JOIN gudang ON gudang.idgudang = transfer_barang.idgudang_tujuan 
+WHERE transfer_barang.idbarang = $idbarang  AND transfer_barang.status = 'active' AND transfer_barang.tanggal >= '$tglawal' AND transfer_barang.tanggal <= '$tglakhir' $wheregudangtransferkeluar
 */
 
 		$h = $this->db->query("
@@ -87,16 +96,16 @@ INNER JOIN gudang ON gudang.idgudang = pembelian.idgudang
 INNER JOIN pelanggan ON pelanggan.idpelanggan = pembelian.idsupplier
 WHERE pembelian.status = 'active' AND detil_pembelian.idbarang = $idbarang AND pembelian.tanggal_terima >= '$tglawal' AND pembelian.tanggal_terima <= '$tglakhir' $wheregudangpembelian 
 UNION
-SELECT retur_penjualan.tanggal, retur_penjualan.nomor_nota, pelanggan.kode, pelanggan.nama as 'namapelanggan', gudang.nama, 'RETURJUAL' AS tipetrans, '' AS jmlsatuanbesarmasuk, '' AS jmlsatuankecilmasuk, '' AS hargamasuk, '' AS subtotalmasuk,
-detil_retur_penjualan.jumlah_besar AS jmlsatuanbesarkeluar, detil_retur_penjualan.jumlah_kecil AS jmlsatuankecilkeluar, detil_retur_penjualan.harga_retur AS hargakeluar, (detil_retur_penjualan.harga_retur * detil_retur_penjualan.jumlah_kecil) AS subtotalkeluar, 'RJ' AS 'inisialkode'
+SELECT retur_penjualan.tanggal, retur_penjualan.nomor_nota, pelanggan.kode, pelanggan.nama as 'namapelanggan', gudang.nama, 'RETURJUAL' AS tipetrans, detil_retur_penjualan.jumlah_besar AS jmlsatuanbesarmasuk, detil_retur_penjualan.jumlah_kecil AS jmlsatuankecilmasuk, detil_retur_penjualan.harga_retur AS hargamasuk, (detil_retur_penjualan.harga_retur * detil_retur_penjualan.jumlah_kecil) AS subtotalmasuk,
+'' AS jmlsatuanbesarkeluar, '' AS jmlsatuankecilkeluar, '' AS hargakeluar, '' AS subtotalkeluar, 'RJ' AS 'inisialkode'
 FROM detil_retur_penjualan
 INNER JOIN retur_penjualan ON retur_penjualan.nomor_nota = detil_retur_penjualan.nomor_nota
 INNER JOIN gudang ON gudang.idgudang = retur_penjualan.idgudang INNER JOIN pelanggan ON pelanggan.idpelanggan = retur_penjualan.idpelanggan
 WHERE retur_penjualan.status = 'active' AND detil_retur_penjualan.idbarang = $idbarang AND retur_penjualan.tanggal >= '$tglawal' AND retur_penjualan.tanggal <= '$tglakhir' $wheregudangreturpenjualan
 UNION
 SELECT retur_pembelian.tanggal, retur_pembelian.nomor_nota, pelanggan.kode, pelanggan.nama as 'namapelanggan', gudang.nama,'RETURBELI' AS tipetrans,
-detil_retur_pembelian.jumlah_besar AS jmlsatuanbesarmasuk, detil_retur_pembelian.jumlah_kecil AS jmlsatuankecilmasuk, detil_retur_pembelian.harga_retur AS hargamasuk, (detil_retur_pembelian.harga_retur * detil_retur_pembelian.jumlah_kecil) AS subtotalmasuk,
-'' AS jmlsatuanbesarkeluar, '' AS jmlsatuankecilkeluar, '' AS hargakeluar, '' AS subtotalkeluar, 'RB' AS 'inisialkode'
+'' AS jmlsatuanbesarmasuk, '' AS jmlsatuankecilmasuk, '' AS hargamasuk, '' AS subtotalmasuk,
+detil_retur_pembelian.jumlah_besar AS jmlsatuanbesarkeluar, detil_retur_pembelian.jumlah_kecil AS jmlsatuankecilkeluar, detil_retur_pembelian.harga_retur AS hargakeluar, (detil_retur_pembelian.harga_retur * detil_retur_pembelian.jumlah_kecil) AS subtotalkeluar, 'RB' AS 'inisialkode'
 FROM detil_retur_pembelian 
 INNER JOIN retur_pembelian ON retur_pembelian.nomor_nota = detil_retur_pembelian.nomor_nota
 INNER JOIN gudang ON gudang.idgudang = retur_pembelian.idgudang INNER JOIN pelanggan ON pelanggan.idpelanggan = retur_pembelian.idsupplier
@@ -107,12 +116,12 @@ transfer_barang.jumlah_besar AS jmlsatuanbesarkeluar, transfer_barang.jumlah_kec
 FROM transfer_barang
 INNER JOIN gudang ON gudang.idgudang = transfer_barang.idgudang_asal 
 WHERE transfer_barang.idbarang = $idbarang  AND transfer_barang.status = 'active' AND transfer_barang.tanggal >= '$tglawal' AND transfer_barang.tanggal <= '$tglakhir' $wheregudangtransferkeluar
-UNION 
+UNION
 SELECT transfer_barang.tanggal AS tanggal, transfer_barang.nomor_nota, '' AS kode, '' as 'namapelanggan', gudang.nama, 'TRANSMASUK' AS tipetrans, transfer_barang.jumlah_besar AS jmlsatuanbesarmasuk, transfer_barang.jumlah_kecil AS jmlsatuankecilmasuk, '' AS hargamasuk, '' AS subtotalmasuk,
 '' AS jmlsatuanbesarkeluar, '' AS jmlsatuankecilkeluar, '' AS hargakeluar, '' AS subtotalkeluar, 'TR' AS 'inisialkode'
 FROM transfer_barang
 INNER JOIN gudang ON gudang.idgudang = transfer_barang.idgudang_tujuan 
-WHERE transfer_barang.idbarang = $idbarang  AND transfer_barang.status = 'active' AND transfer_barang.tanggal >= '$tglawal' AND transfer_barang.tanggal <= '$tglakhir' $wheregudangtransferkeluar
+WHERE transfer_barang.idbarang = $idbarang  AND transfer_barang.status = 'active' AND transfer_barang.tanggal >= '$tglawal' AND transfer_barang.tanggal <= '$tglakhir' $wheregudangtransmasuk
 UNION
 SELECT barang_hilang.tanggal AS tanggal, barang_hilang.nomor_nota, '' AS kode, '' as 'namapelanggan', gudang.nama, 'HILANG' AS tipetrans, '' AS jmlsatuanbesarmasuk, '' AS jmlsatuankecilmasuk, '' AS hargamasuk, '' AS subtotalmasuk,
 barang_hilang.jumlah_besar AS jmlsatuanbesarkeluar, barang_hilang.jumlah_kecil AS jmlsatuankecilkeluar, '' AS hargakeluar, '' AS subtotalkeluar, 'BH' AS 'inisialkode'
@@ -147,8 +156,10 @@ WHERE barang_hilang.idbarang = $idbarang  AND barang_hilang.status = 'active' AN
 			$wheregudangreturpembelian = " AND retur_pembelian.idgudang = $idgudang ";
 		}
 		$wheregudangtransferkeluar = '';
+		$wheregudangtransmasuk = '';
 		if($idgudang != '') {
 			$wheregudangtransferkeluar = " AND transfer_barang.idgudang_asal = $idgudang ";
+			$wheregudangtransmasuk = " AND transfer_barang.idgudang_tujuan = $idgudang ";
 		}
 		$wheregudanghilangkeluar = '';
 		if($idgudang != '') {
@@ -197,6 +208,13 @@ FROM retur_pembelian
 INNER JOIN gudang ON gudang.idgudang = retur_pembelian.idgudang
 INNER JOIN pelanggan ON pelanggan.idpelanggan = retur_pembelian.idsupplier
 WHERE retur_pembelian.status = 'active' AND retur_pembelian.nomor_nota IN (SELECT detil_retur_pembelian.nomor_nota FROM detil_retur_pembelian WHERE detil_retur_pembelian.idbarang = $idbarang ) AND retur_pembelian.tanggal < '$tglawal' $wheregudangreturpembelian 
+
+
+SELECT transfer_barang.tanggal AS tanggal, transfer_barang.nomor_nota, '' AS kode, '' as 'namapelanggan',  gudang.nama, 'TRANSMASUK' AS tipetrans, transfer_barang.jumlah_besar AS jmlsatuanbesarmasuk, transfer_barang.jumlah_kecil AS jmlsatuankecilmasuk, '' AS hargamasuk, '' AS subtotalmasuk,
+'' AS jmlsatuanbesarkeluar, '' AS jmlsatuankecilkeluar, '' AS hargakeluar, '' AS subtotalkeluar
+FROM transfer_barang
+INNER JOIN gudang ON gudang.idgudang = transfer_barang.idgudang_tujuan 
+WHERE transfer_barang.idbarang = $idbarang  AND transfer_barang.status = 'active' AND transfer_barang.tanggal < '$tglawal' $wheregudangtransferkeluar
 */
 		$h = $this->db->query("SELECT penjualan.tanggal_jual AS tanggal, penjualan.nomor_nota, pelanggan.kode, pelanggan.nama as 'namapelanggan',gudang.nama, 'JUAL' AS tipetrans, '' AS jmlsatuanbesarmasuk, '' AS jmlsatuankecilmasuk, '' AS hargamasuk, '' AS subtotalmasuk,
 detil_penjualan.jumlah_besar AS jmlsatuanbesarkeluar, detil_penjualan.jumlah_kecil AS jmlsatuankecilkeluar, detil_penjualan.harga AS hargakeluar, (detil_penjualan.harga * detil_penjualan.jumlah_kecil) AS subtotalkeluar
@@ -213,32 +231,32 @@ INNER JOIN gudang ON gudang.idgudang = pembelian.idgudang
 INNER JOIN pelanggan ON pelanggan.idpelanggan = pembelian.idsupplier
 WHERE pembelian.status = 'active' AND detil_pembelian.idbarang = $idbarang AND pembelian.tanggal_terima < '$tglawal' $wheregudangpembelian
 UNION
-SELECT retur_penjualan.tanggal, retur_penjualan.nomor_nota, pelanggan.kode, pelanggan.nama as 'namapelanggan',  gudang.nama, 'RETURJUAL' AS tipetrans, '' AS jmlsatuanbesarmasuk, '' AS jmlsatuankecilmasuk, '' AS hargamasuk, '' AS subtotalmasuk,
-detil_retur_penjualan.jumlah_besar AS jmlsatuanbesarkeluar, detil_retur_penjualan.jumlah_kecil AS jmlsatuankecilkeluar, detil_retur_penjualan.harga_retur AS hargakeluar, (detil_retur_penjualan.harga_retur * detil_retur_penjualan.jumlah_kecil) AS subtotalkeluar
+SELECT retur_penjualan.tanggal, retur_penjualan.nomor_nota, pelanggan.kode, pelanggan.nama as 'namapelanggan', gudang.nama, 'RETURJUAL' AS tipetrans, detil_retur_penjualan.jumlah_besar AS jmlsatuanbesarmasuk, detil_retur_penjualan.jumlah_kecil AS jmlsatuankecilmasuk, detil_retur_penjualan.harga_retur AS hargamasuk, (detil_retur_penjualan.harga_retur * detil_retur_penjualan.jumlah_kecil) AS subtotalmasuk,
+'' AS jmlsatuanbesarkeluar, '' AS jmlsatuankecilkeluar, '' AS hargakeluar, '' AS subtotalkeluar
 FROM detil_retur_penjualan
 INNER JOIN retur_penjualan ON retur_penjualan.nomor_nota = detil_retur_penjualan.nomor_nota
 INNER JOIN gudang ON gudang.idgudang = retur_penjualan.idgudang INNER JOIN pelanggan ON pelanggan.idpelanggan = retur_penjualan.idpelanggan
-WHERE retur_penjualan.status = 'active' AND detil_retur_penjualan.idbarang = $idbarang AND retur_penjualan.tanggal < '$tglawal'  $wheregudangreturpenjualan $wheregudangreturpenjualan
+WHERE retur_penjualan.status = 'active' AND detil_retur_penjualan.idbarang = $idbarang AND retur_penjualan.tanggal < '$tglawal' $wheregudangreturpenjualan
 UNION
-SELECT retur_pembelian.tanggal, retur_pembelian.nomor_nota, pelanggan.kode, pelanggan.nama as 'namapelanggan',  gudang.nama,'RETURBELI' AS tipetrans,
-detil_retur_pembelian.jumlah_besar AS jmlsatuanbesarmasuk, detil_retur_pembelian.jumlah_kecil AS jmlsatuankecilmasuk, detil_retur_pembelian.harga_retur AS hargamasuk, (detil_retur_pembelian.harga_retur * detil_retur_pembelian.jumlah_kecil) AS subtotalmasuk,
-'' AS jmlsatuanbesarkeluar, '' AS jmlsatuankecilkeluar, '' AS hargakeluar, '' AS subtotalkeluar
+SELECT retur_pembelian.tanggal, retur_pembelian.nomor_nota, pelanggan.kode, pelanggan.nama as 'namapelanggan', gudang.nama,'RETURBELI' AS tipetrans,
+'' AS jmlsatuanbesarmasuk, '' AS jmlsatuankecilmasuk, '' AS hargamasuk, '' AS subtotalmasuk,
+detil_retur_pembelian.jumlah_besar AS jmlsatuanbesarkeluar, detil_retur_pembelian.jumlah_kecil AS jmlsatuankecilkeluar, detil_retur_pembelian.harga_retur AS hargakeluar, (detil_retur_pembelian.harga_retur * detil_retur_pembelian.jumlah_kecil) AS subtotalkeluar
 FROM detil_retur_pembelian 
 INNER JOIN retur_pembelian ON retur_pembelian.nomor_nota = detil_retur_pembelian.nomor_nota
 INNER JOIN gudang ON gudang.idgudang = retur_pembelian.idgudang INNER JOIN pelanggan ON pelanggan.idpelanggan = retur_pembelian.idsupplier
-WHERE retur_pembelian.status = 'active' AND detil_retur_pembelian.idbarang = $idbarang AND retur_pembelian.tanggal < '$tglawal'  $wheregudangreturpembelian
+WHERE retur_pembelian.status = 'active' AND detil_retur_pembelian.idbarang = $idbarang AND retur_pembelian.tanggal < '$tglawal' $wheregudangreturpembelian
 UNION
 SELECT transfer_barang.tanggal AS tanggal, transfer_barang.nomor_nota, '' AS kode, '' as 'namapelanggan', gudang.nama, 'TRANSKELUAR' AS tipetrans, '' AS jmlsatuanbesarmasuk, '' AS jmlsatuankecilmasuk, '' AS hargamasuk, '' AS subtotalmasuk,
 transfer_barang.jumlah_besar AS jmlsatuanbesarkeluar, transfer_barang.jumlah_kecil AS jmlsatuankecilkeluar, '' AS hargakeluar, '' AS subtotalkeluar
 FROM transfer_barang
 INNER JOIN gudang ON gudang.idgudang = transfer_barang.idgudang_asal 
 WHERE transfer_barang.idbarang = $idbarang  AND transfer_barang.status = 'active' AND transfer_barang.tanggal < '$tglawal' $wheregudangtransferkeluar 
-UNION 
-SELECT transfer_barang.tanggal AS tanggal, transfer_barang.nomor_nota, '' AS kode, '' as 'namapelanggan',  gudang.nama, 'TRANSMASUK' AS tipetrans, transfer_barang.jumlah_besar AS jmlsatuanbesarmasuk, transfer_barang.jumlah_kecil AS jmlsatuankecilmasuk, '' AS hargamasuk, '' AS subtotalmasuk,
+UNION
+SELECT transfer_barang.tanggal AS tanggal, transfer_barang.nomor_nota, '' AS kode, '' as 'namapelanggan', gudang.nama, 'TRANSMASUK' AS tipetrans, transfer_barang.jumlah_besar AS jmlsatuanbesarmasuk, transfer_barang.jumlah_kecil AS jmlsatuankecilmasuk, '' AS hargamasuk, '' AS subtotalmasuk,
 '' AS jmlsatuanbesarkeluar, '' AS jmlsatuankecilkeluar, '' AS hargakeluar, '' AS subtotalkeluar
 FROM transfer_barang
 INNER JOIN gudang ON gudang.idgudang = transfer_barang.idgudang_tujuan 
-WHERE transfer_barang.idbarang = $idbarang  AND transfer_barang.status = 'active' AND transfer_barang.tanggal < '$tglawal' $wheregudangtransferkeluar
+WHERE transfer_barang.idbarang = $idbarang  AND transfer_barang.status = 'active' AND transfer_barang.tanggal <'$tglawal' $wheregudangtransmasuk
 UNION
 SELECT barang_hilang.tanggal AS tanggal, barang_hilang.nomor_nota, '' AS kode, '' as 'namapelanggan',  gudang.nama, 'HILANG' AS tipetrans, '' AS jmlsatuanbesarmasuk, '' AS jmlsatuankecilmasuk, '' AS hargamasuk, '' AS subtotalmasuk,
 barang_hilang.jumlah_besar AS jmlsatuanbesarkeluar, barang_hilang.jumlah_kecil AS jmlsatuankecilkeluar, '' AS hargakeluar, '' AS subtotalkeluar

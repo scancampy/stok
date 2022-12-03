@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+w<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -50,7 +50,7 @@
                             $h = strval($saldoawal);
                                $arr = explode(".", $h);
                              
-                               echo number_format($arr[0],2,",",".");
+                               echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
                                 echo ','.$arr[1];
                                }; } ?></td>
@@ -70,7 +70,7 @@
                               $h = strval($b->debit);
                                $arr = explode(".", $h);
                              
-                               echo number_format($arr[0],2,",",".");
+                               echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
                                 echo ','.$arr[1];
                                }; } ?></td>
@@ -79,7 +79,7 @@
                                 $h = strval($b->kredit);
                                $arr = explode(".", $h);
                              
-                               echo number_format($arr[0],2,",",".");
+                               echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
                                 echo ','.$arr[1];
                                }
@@ -89,7 +89,7 @@
                             $h = strval($saldoawal);
                                $arr = explode(".", $h);
                              
-                               echo number_format($arr[0],2,",",".");
+                               echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
                                 echo ','.$arr[1];
                                };

@@ -102,7 +102,7 @@
                                $h = strval($b->jumlah_besar);
                                $arr = explode(".", $h);
                              
-                               echo number_format($arr[0],2,",",".");
+                               echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
                                 echo ','.$arr[1];
                                }
@@ -114,7 +114,7 @@
                                $h = strval($b->jumlah_kecil);
                                $arr = explode(".", $h);
                              
-                               echo number_format($arr[0],2,",",".");
+                               echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
                                 echo ','.$arr[1];
                                }

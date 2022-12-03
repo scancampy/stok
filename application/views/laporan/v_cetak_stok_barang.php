@@ -85,7 +85,7 @@
                             $h = strval($saldocolly);
                                $arr = explode(".", $h);
                              
-                               echo number_format($arr[0],2,",",".");
+                               echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
                                 echo ','.$arr[1];
                                }; } ?></td>
@@ -94,7 +94,7 @@
                             $h = strval($saldojumlah);
                                $arr = explode(".", $h);
                              
-                               echo number_format($arr[0],2,",",".");
+                               echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
                                 echo ','.$arr[1];
                                }; } ?></td>
@@ -103,7 +103,7 @@
                             $h = strval($saldoawal);
                                $arr = explode(".", $h);
                              
-                               echo number_format($arr[0],2,",",".");
+                               echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
                                 echo ','.$arr[1];
                                }; } ?></td>
@@ -122,7 +122,7 @@
                               $h = strval($b->jmlsatuanbesarmasuk);
                                $arr = explode(".", $h);
                              
-                               echo number_format($arr[0],2,",",".");
+                               echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
                                 echo ','.$arr[1];
                                }; } ?></td>
@@ -130,7 +130,7 @@
                                 $h = strval($b->jmlsatuankecilmasuk);
                                $arr = explode(".", $h);
                              
-                               echo number_format($arr[0],2,",",".");
+                               echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
                                 echo ','.$arr[1];
                                }
@@ -141,7 +141,7 @@
                               $h = strval($b->hargamasuk);
                                  $arr = explode(".", $h);
                                
-                                 echo number_format($arr[0],2,",",".");
+                                 echo number_format($arr[0],0,",",".");
                                  if(count($arr) > 1) {
                                   echo ','.$arr[1];
                                  };
@@ -157,7 +157,7 @@
                               $h = strval($b->subtotalmasuk);
                                  $arr = explode(".", $h);
                                
-                                 echo number_format($arr[0],2,",",".");
+                                 echo number_format($arr[0],0,",",".");
                                  if(count($arr) > 1) {
                                   echo ','.$arr[1];
                                  };
@@ -168,7 +168,7 @@
                               $h = strval($b->jmlsatuanbesarkeluar);
                                $arr = explode(".", $h);
                              
-                               echo number_format($arr[0],2,",",".");
+                               echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
                                 echo ','.$arr[1];
                                }; } ?></td>
@@ -176,7 +176,7 @@
                                 $h = strval($b->jmlsatuankecilkeluar);
                                $arr = explode(".", $h);
                              
-                               echo number_format($arr[0],2,",",".");
+                               echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
                                 echo ','.$arr[1];
                                }
@@ -187,7 +187,7 @@
                               $h = strval($b->hargakeluar);
                                  $arr = explode(".", $h);
                                
-                                 echo number_format($arr[0],2,",",".");
+                                 echo number_format($arr[0],0,",",".");
                                  if(count($arr) > 1) {
                                   echo ','.$arr[1];
                                  };
@@ -201,7 +201,7 @@
                               $h = strval($b->subtotalkeluar);
                                  $arr = explode(".", $h);
                                
-                                 echo number_format($arr[0],2,",",".");
+                                 echo number_format($arr[0],0,",",".");
                                  if(count($arr) > 1) {
                                   echo ','.$arr[1];
                                  };
@@ -223,7 +223,7 @@
                                $h = strval($saldocolly);
                                  $arr = explode(".", $h);
                                
-                                 echo number_format($arr[0],2,",",".");
+                                 echo number_format($arr[0],0,",",".");
                                  if(count($arr) > 1) {
                                   echo ','.$arr[1];
                                  };
@@ -244,7 +244,7 @@
                                $h = strval($saldojumlah);
                                  $arr = explode(".", $h);
                                
-                                 echo number_format($arr[0],2,",",".");
+                                 echo number_format($arr[0],0,",",".");
                                  if(count($arr) > 1) {
                                   echo ','.$arr[1];
                                  };
@@ -255,7 +255,7 @@
                               $h = strval($saldoawal);
                                  $arr = explode(".", $h);
                                
-                                 echo number_format($arr[0],2,",",".");
+                                 echo number_format($arr[0],0,",",".");
                                  if(count($arr) > 1) {
                                   echo ','.$arr[1];
                                  };

@@ -342,17 +342,23 @@ class Laporan extends CI_Controller {
   					$data['saldoawal'] -= $key->subtotalmasuk;
   					$data['saldocolly'] += $key->jmlsatuanbesarmasuk;
   					$data['saldojumlah'] += $key->jmlsatuankecilmasuk;
-  				} else if($key->tipetrans == 'RETURJUAL') {
+  				} else if($key->tipetrans == 'RETURBELI') {
   					$data['saldoawal'] += $key->subtotalkeluar;
   					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
   					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
-  				} else if($key->tipetrans == 'RETURBELI') {
+  				} else if($key->tipetrans == 'RETURJUAL') {
   					$data['saldoawal'] -= $key->subtotalmasuk;
   					$data['saldocolly'] += $key->jmlsatuanbesarmasuk;
   					$data['saldojumlah'] += $key->jmlsatuankecilmasuk;
   				} else if($key->tipetrans == 'HILANG') {
   					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
   					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+  				} else if($key->tipetrans == 'TRANSKELUAR') {
+  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
+  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+  				} else if($key->tipetrans == 'TRANSMASUK') {
+  					$data['saldocolly'] += $key->jmlsatuanbesarkeluar;
+  					$data['saldojumlah'] += $key->jmlsatuankecilkeluar;
   				} 
   			}	
   		
