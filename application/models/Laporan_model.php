@@ -313,7 +313,7 @@ FROM `detil_retur_pembelian`, `retur_pembelian`
 INNER JOIN gudang ON gudang.idgudang = retur_pembelian.idgudang
 WHERE detil_retur_pembelian.nomor_nota = retur_pembelian.nomor_nota AND retur_pembelian.idsupplier = $idpelanggan AND retur_pembelian.status = 'active' AND retur_pembelian.tanggal >= '$tglawal' AND retur_pembelian.tanggal <= '$tglakhir'
 UNION
-SELECT hutangpiutang.tanggal, hutangpiutang.nomor_nota, UPPER(rekening.bank) as tipetrans, '' as gudang, kurs.lambang as valuta, 
+SELECT hutangpiutang.tanggal, hutangpiutang.nomor_nota, UPPER(rekening.kode) as tipetrans, '' as gudang, kurs.lambang as valuta, 
 ''  AS 'collybeli', ''  AS 'jmlbeli', ''  AS 'hargabeli', hutangpiutang.nominal AS 'kredit',
 ''  AS 'collyjual', ''  AS 'jmljual', ''  AS 'hargajual',
 '' AS 'debit', 'P' AS 'inisialkode','TERIMA PIUTANG' AS 'jenistrans'  
@@ -322,7 +322,7 @@ INNER JOIN kurs ON kurs.idkurs = hutangpiutang.idkurs
 INNER JOIN rekening ON rekening.idrekening = hutangpiutang.idrekening
 WHERE hutangpiutang.idpelanggan = $idpelanggan AND hutangpiutang.status = 'active' AND hutangpiutang.tanggal >= '$tglawal' AND hutangpiutang.tanggal <= '$tglakhir' AND hutangpiutang.jenis = 'piutang'
 UNION
-SELECT hutangpiutang.tanggal, hutangpiutang.nomor_nota, UPPER(rekening.bank) as tipetrans, '' as gudang, kurs.lambang as valuta, 
+SELECT hutangpiutang.tanggal, hutangpiutang.nomor_nota, UPPER(rekening.kode) as tipetrans, '' as gudang, kurs.lambang as valuta, 
 ''  AS 'collybeli', ''  AS 'jmlbeli', ''  AS 'hargabeli', '' AS 'kredit',
 ''  AS 'collyjual', ''  AS 'jmljual', ''  AS 'hargajual',
 hutangpiutang.nominal AS 'debit', 'H' AS 'inisialkode','BAYAR HUTANG' AS 'jenistrans'  
@@ -496,7 +496,7 @@ FROM `detil_retur_pembelian`, `retur_pembelian`
 INNER JOIN gudang ON gudang.idgudang = retur_pembelian.idgudang
 WHERE detil_retur_pembelian.nomor_nota = retur_pembelian.nomor_nota AND retur_pembelian.idsupplier = $idpelanggan AND retur_pembelian.status = 'active' AND retur_pembelian.tanggal < '$tglawal'
 UNION
-SELECT hutangpiutang.tanggal, hutangpiutang.nomor_nota, UPPER(rekening.bank) as tipetrans, '' as gudang, kurs.lambang as valuta, 
+SELECT hutangpiutang.tanggal, hutangpiutang.nomor_nota, UPPER(rekening.kode) as tipetrans, '' as gudang, kurs.lambang as valuta, 
 ''  AS 'collybeli', ''  AS 'jmlbeli', ''  AS 'hargabeli', hutangpiutang.nominal AS 'kredit',
 ''  AS 'collyjual', ''  AS 'jmljual', ''  AS 'hargajual',
 '' AS 'debit', 'P' AS 'inisialkode','TERIMA PIUTANG' AS 'jenistrans'  
@@ -505,7 +505,7 @@ INNER JOIN kurs ON kurs.idkurs = hutangpiutang.idkurs
 INNER JOIN rekening ON rekening.idrekening = hutangpiutang.idrekening
 WHERE hutangpiutang.idpelanggan = $idpelanggan AND hutangpiutang.status = 'active' AND hutangpiutang.tanggal < '$tglawal' AND hutangpiutang.jenis = 'piutang'
 UNION
-SELECT hutangpiutang.tanggal, hutangpiutang.nomor_nota, UPPER(rekening.bank) as tipetrans, '' as gudang, kurs.lambang as valuta, 
+SELECT hutangpiutang.tanggal, hutangpiutang.nomor_nota, UPPER(rekening.kode) as tipetrans, '' as gudang, kurs.lambang as valuta, 
 ''  AS 'collybeli', ''  AS 'jmlbeli', ''  AS 'hargabeli', '' AS 'kredit',
 ''  AS 'collyjual', ''  AS 'jmljual', ''  AS 'hargajual',
 hutangpiutang.nominal AS 'debit', 'H' AS 'inisialkode','BAYAR HUTANG' AS 'jenistrans'  
@@ -580,25 +580,25 @@ ORDER BY tanggal ASC");
 
 	public function getBukuBank($idrekening = '', $tglawal = '', $tglakhir = '') {
 		//CONCAT(transaksi_bank.keterangan_asal, ' ', transaksi_bank.keterangan_tujuan)
-		$h = $this->db->query("SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'HUTANG' as tipetrans, 'BAYAR HUTANG KE ' as 'keterangantrans', pelanggan.kode AS 'kode', pelanggan.nama AS 'nama', hutangpiutang.keterangan, rekening.kode AS 'koderek', '' AS debit, hutangpiutang.nominal AS kredit, 'H' AS 'inisialkode'  
+		$h = $this->db->query("SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'HUTANG' as tipetrans, 'BAYAR HUTANG KE' as 'keterangantrans', pelanggan.kode AS 'kode', pelanggan.nama AS 'nama', hutangpiutang.keterangan, rekening.kode AS 'koderek', '' AS debit, hutangpiutang.nominal AS kredit, 'H' AS 'inisialkode'  
 FROM hutangpiutang 
 INNER JOIN pelanggan ON pelanggan.idpelanggan = hutangpiutang.idpelanggan
 INNER JOIN rekening ON rekening.idrekening = hutangpiutang.idrekening
 WHERE hutangpiutang.idrekening= $idrekening AND hutangpiutang.jenis = 'hutang' AND hutangpiutang.status = 'active' AND hutangpiutang.tanggal >= '$tglawal' AND hutangpiutang.tanggal <= '$tglakhir'
 UNION
-SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'PIUTANG' as tipetrans,  'TERIMA BAYAR PIUTANG DARI ' as 'keterangantrans', pelanggan.kode AS 'kode', pelanggan.nama AS 'nama', hutangpiutang.keterangan, rekening.kode AS 'koderek', hutangpiutang.nominal AS debit, '' AS kredit , 'P' AS 'inisialkode'  
+SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'PIUTANG' as tipetrans,  'PIUTANG DARI' as 'keterangantrans', pelanggan.kode AS 'kode', pelanggan.nama AS 'nama', hutangpiutang.keterangan, rekening.kode AS 'koderek', hutangpiutang.nominal AS debit, '' AS kredit , 'P' AS 'inisialkode'  
 FROM hutangpiutang
 INNER JOIN pelanggan ON pelanggan.idpelanggan = hutangpiutang.idpelanggan
 INNER JOIN rekening ON rekening.idrekening = hutangpiutang.idrekening
 WHERE hutangpiutang.idrekening= $idrekening AND hutangpiutang.jenis = 'piutang' AND hutangpiutang.status = 'active'  AND hutangpiutang.tanggal >= '$tglawal' AND hutangpiutang.tanggal <= '$tglakhir'
 UNION
-SELECT transaksi_bank.idtransfer AS 'nomor_nota', transaksi_bank.tanggal, 'TRANSMASUK' as tipetrans, 'TRANSFER DARI ' as 'keterangantrans', R1.kode AS 'kode', R1.bank AS 'nama', transaksi_bank.keterangan_tujuan as 'keterangan', rekening.kode AS 'koderek', transaksi_bank.nominal AS debit, '' AS kredit , 'KM' AS 'inisialkode'  
+SELECT transaksi_bank.idtransfer AS 'nomor_nota', transaksi_bank.tanggal, 'TRANSMASUK' as tipetrans, 'TRANSFER DARI' as 'keterangantrans', R1.kode AS 'kode', R1.bank AS 'nama', transaksi_bank.keterangan_tujuan as 'keterangan', rekening.kode AS 'koderek', transaksi_bank.nominal AS debit, '' AS kredit , 'KM' AS 'inisialkode'  
 FROM transaksi_bank
 INNER JOIN rekening ON rekening.idrekening = transaksi_bank.idrekening_tujuan
 INNER JOIN rekening AS R1 ON R1.idrekening = transaksi_bank.idrekening_asal
 WHERE transaksi_bank.idrekening_tujuan= $idrekening AND transaksi_bank.jenis_transaksi = 'masuk' AND transaksi_bank.status = 'active'  AND transaksi_bank.tanggal >= '$tglawal' AND transaksi_bank.tanggal <= '$tglakhir'
 UNION
-SELECT transaksi_bank.idtransfer AS 'nomor_nota', transaksi_bank.tanggal, 'TRANSKELUAR' as tipetrans, 'TRANSFER KE ' as 'keterangantrans', R1.kode AS 'kode', R1.bank AS 'nama', transaksi_bank.keterangan_asal as 'keterangan', rekening.kode AS 'koderek', '' AS debit, transaksi_bank.nominal AS  kredit , 'KK' AS 'inisialkode'  
+SELECT transaksi_bank.idtransfer AS 'nomor_nota', transaksi_bank.tanggal, 'TRANSKELUAR' as tipetrans, 'TRANSFER KE' as 'keterangantrans', R1.kode AS 'kode', R1.bank AS 'nama', transaksi_bank.keterangan_asal as 'keterangan', rekening.kode AS 'koderek', '' AS debit, transaksi_bank.nominal AS  kredit , 'KK' AS 'inisialkode'  
 FROM transaksi_bank
 INNER JOIN rekening ON rekening.idrekening = transaksi_bank.idrekening_asal
 INNER JOIN rekening AS R1 ON R1.idrekening = transaksi_bank.idrekening_tujuan
@@ -609,25 +609,25 @@ ORDER BY tanggal ASC");
 	}
 
 	public function getSaldoAwal($idrekening = '', $tglawal = '') {
-		$h = $this->db->query("SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'HUTANG' as tipetrans, 'BAYAR HUTANG KE ' as 'keterangantrans', pelanggan.kode AS 'kode', hutangpiutang.keterangan, rekening.kode AS 'koderek', '' AS debit, hutangpiutang.nominal AS kredit  
+		$h = $this->db->query("SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'HUTANG' as tipetrans, 'BAYAR HUTANG KE' as 'keterangantrans', pelanggan.kode AS 'kode', hutangpiutang.keterangan, rekening.kode AS 'koderek', '' AS debit, hutangpiutang.nominal AS kredit  
 FROM hutangpiutang 
 INNER JOIN pelanggan ON pelanggan.idpelanggan = hutangpiutang.idpelanggan
 INNER JOIN rekening ON rekening.idrekening = hutangpiutang.idrekening
 WHERE hutangpiutang.idrekening= $idrekening AND hutangpiutang.jenis = 'hutang' AND hutangpiutang.status = 'active' AND hutangpiutang.tanggal < '$tglawal'
 UNION
-SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'PIUTANG' as tipetrans,  'TERIMA BAYAR PIUTANG DARI ' as 'keterangantrans', pelanggan.kode AS 'kode', hutangpiutang.keterangan, rekening.kode AS 'koderek', hutangpiutang.nominal AS debit, '' AS kredit 
+SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'PIUTANG' as tipetrans,  'PIUTANG DARI' as 'keterangantrans', pelanggan.kode AS 'kode', hutangpiutang.keterangan, rekening.kode AS 'koderek', hutangpiutang.nominal AS debit, '' AS kredit 
 FROM hutangpiutang
 INNER JOIN pelanggan ON pelanggan.idpelanggan = hutangpiutang.idpelanggan
 INNER JOIN rekening ON rekening.idrekening = hutangpiutang.idrekening
 WHERE hutangpiutang.idrekening= $idrekening AND hutangpiutang.jenis = 'piutang' AND hutangpiutang.status = 'active'  AND hutangpiutang.tanggal < '$tglawal' 
 UNION
-SELECT transaksi_bank.idtransfer AS 'nomor_nota', transaksi_bank.tanggal, 'TRANSMASUK' as tipetrans, 'TRANSFER DARI ' as 'keterangantrans', R1.kode AS 'kode', CONCAT(transaksi_bank.keterangan_asal, ' ', transaksi_bank.keterangan_tujuan) as 'keterangan', rekening.kode AS 'koderek', transaksi_bank.nominal AS debit, '' AS kredit 
+SELECT transaksi_bank.idtransfer AS 'nomor_nota', transaksi_bank.tanggal, 'TRANSMASUK' as tipetrans, 'TRANSFER DARI' as 'keterangantrans', R1.kode AS 'kode', CONCAT(transaksi_bank.keterangan_asal, ' ', transaksi_bank.keterangan_tujuan) as 'keterangan', rekening.kode AS 'koderek', transaksi_bank.nominal AS debit, '' AS kredit 
 FROM transaksi_bank
 INNER JOIN rekening ON rekening.idrekening = transaksi_bank.idrekening_tujuan
 INNER JOIN rekening AS R1 ON R1.idrekening = transaksi_bank.idrekening_asal
 WHERE transaksi_bank.idrekening_tujuan= $idrekening AND transaksi_bank.jenis_transaksi = 'masuk' AND transaksi_bank.status = 'active'  AND transaksi_bank.tanggal < '$tglawal' 
 UNION
-SELECT transaksi_bank.idtransfer AS 'nomor_nota', transaksi_bank.tanggal, 'TRANSKELUAR' as tipetrans, 'TRANSFER KE ' as 'keterangantrans', R1.kode AS 'kode', CONCAT(transaksi_bank.keterangan_asal, ' ', transaksi_bank.keterangan_tujuan) as 'keterangan', rekening.kode AS 'koderek', '' AS debit, transaksi_bank.nominal AS  kredit 
+SELECT transaksi_bank.idtransfer AS 'nomor_nota', transaksi_bank.tanggal, 'TRANSKELUAR' as tipetrans, 'TRANSFER KE' as 'keterangantrans', R1.kode AS 'kode', CONCAT(transaksi_bank.keterangan_asal, ' ', transaksi_bank.keterangan_tujuan) as 'keterangan', rekening.kode AS 'koderek', '' AS debit, transaksi_bank.nominal AS  kredit 
 FROM transaksi_bank
 INNER JOIN rekening ON rekening.idrekening = transaksi_bank.idrekening_asal
 INNER JOIN rekening AS R1 ON R1.idrekening = transaksi_bank.idrekening_tujuan

@@ -62,8 +62,8 @@ w<!DOCTYPE html>
                           <tr>
                             <td><?php echo strtoupper(strftime("%d %B %Y", strtotime($b->tanggal))); ?></td>
                             <td><?php echo strtoupper($b->inisialkode.$b->nomor_nota); ?></td>
-                            <td><?php echo strtoupper($b->keterangantrans.' '.$b->kode); ?></td>
-                            <td><?php echo strtoupper($b->koderek); ?></td>
+                            <td><?php echo strtoupper($b->keterangantrans); ?></td>
+                            <td><?php echo strtoupper($b->kode); ?></td>
                             <td><?php echo strtoupper($b->keterangan); ?></td>
                             <td><?php if($b->debit != '') { 
                               $saldoawal += $b->debit;

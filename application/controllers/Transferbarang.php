@@ -709,7 +709,7 @@ class Transferbarang extends CI_Controller {
     $data['js'] .= "
     $('#idgudang_asal').on('change', function() {
     	if($(this).val() != '') {
-    		$('#helpgudangasal').html($('option:selected', this).attr('alamat'));
+    		$('#helpgudangasal').html($('option:selected', this).attr('alamat').toUpperCase());
     		$('#helpgudangasal').show();
     	} else {
     		$('#helpgudangasal').hide();
@@ -718,7 +718,7 @@ class Transferbarang extends CI_Controller {
 
     $('#idgudang_tujuan').on('change', function() {
     	if($(this).val() != '') {
-    		$('#helpgudangtujuan').html($('option:selected', this).attr('alamat'));
+    		$('#helpgudangtujuan').html($('option:selected', this).attr('alamat').toUpperCase());
     		$('#helpgudangtujuan').show();
     	} else {
     		$('#helpgudangtujuan').hide();
@@ -1189,7 +1189,7 @@ class Transferbarang extends CI_Controller {
     $data['js'] .= "
     $('#idgudang_asal').on('change', function() {
     	if($(this).val() != '') {
-    		$('#helpgudangasal').html($('option:selected', this).attr('alamat'));
+    		$('#helpgudangasal').html($('option:selected', this).attr('alamat').toUpperCase());
     		$('#helpgudangasal').show();
     	} else {
     		$('#helpgudangasal').hide();
@@ -1198,7 +1198,7 @@ class Transferbarang extends CI_Controller {
 
     $('#idgudang_tujuan').on('change', function() {
     	if($(this).val() != '') {
-    		$('#helpgudangtujuan').html($('option:selected', this).attr('alamat'));
+    		$('#helpgudangtujuan').html($('option:selected', this).attr('alamat').toUpperCase());
     		$('#helpgudangtujuan').show();
     	} else {
     		$('#helpgudangtujuan').hide();

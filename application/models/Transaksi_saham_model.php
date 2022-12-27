@@ -115,7 +115,7 @@ WHERE (pembelian_saham.nomor_nota LIKE '%".$search."%') ".$wherestr.";";
 	}
 
 	public function getTotalHargaBeli($nomor_nota) {
-		$this->db->select('sum(jumlah_besar * harga) as "total" ');
+		$this->db->select('sum(jumlah_kecil * harga) as "total" ');
 		$q = $this->db->get_where('detil_pembelian_saham', array('nomor_nota' => $nomor_nota));
 		return $q->result();
 	}
