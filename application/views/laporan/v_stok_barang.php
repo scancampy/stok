@@ -181,7 +181,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
                                <td><?php 
                             if(isset($saldojumlah)) {
@@ -190,7 +190,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
                                <td><?php 
                             if(isset($saldoawal)) {
@@ -199,7 +199,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
 
                           </tr>
@@ -218,7 +218,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
                             <td><?php if($b->jmlsatuankecilmasuk != '') {
                                 $h = strval($b->jmlsatuankecilmasuk);
@@ -226,7 +226,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }
                              } ?></td>
                           <td>
@@ -237,7 +237,7 @@
                                
                                  echo number_format($arr[0],0,",",".");
                                  if(count($arr) > 1) {
-                                  echo ','.$arr[1];
+                                  echo ','.substr($arr[1],0,2);
                                  };
                              }
                             ?>
@@ -264,7 +264,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
                             <td><?php if($b->jmlsatuankecilkeluar != '') {
                                 $h = strval($b->jmlsatuankecilkeluar);
@@ -272,7 +272,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }
                              } ?></td>
                           <td>
@@ -283,7 +283,7 @@
                                
                                  echo number_format($arr[0],0,",",".");
                                  if(count($arr) > 1) {
-                                  echo ','.$arr[1];
+                                  echo ','.substr($arr[1],0,2);
                                  };
                              }
                             ?>
@@ -325,7 +325,7 @@
                                
                                  echo number_format($arr[0],0,",",".");
                                  if(count($arr) > 1) {
-                                  echo ','.$arr[1];
+                                  echo ','.substr($arr[1],0,2);
                                  };
                                ?>
                              </td>
@@ -353,7 +353,7 @@
                               //  echo $h.'<br/>';
                                  echo number_format($arr[0],0,",",".");
                                  if(count($arr) > 1) {
-                                  echo ','.$arr[1];
+                                  echo ','.substr($arr[1],0,2);
                                  };
                                ?>
                              </td>
@@ -364,7 +364,7 @@
                                
                                  echo number_format($arr[0],0,",",".");
                                  if(count($arr) > 1) {
-                                  echo ','.$arr[1];
+                                  echo ','.substr($arr[1],0,2);
                                  };
                               ?>
                              </td>

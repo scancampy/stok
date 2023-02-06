@@ -609,7 +609,7 @@ class Hutangpiutang extends CI_Controller {
 			  		$.post('".base_url('hutangpiutang/searchrekeningkode')."', { nomor_nota: $('#koderekening').val() }, function(data) {
 			  			var json = JSON.parse(data);
 						if(json['data'].length > 0) {
-							$('#helprekening').html('NO. REKENING : ' + json['data'][0].nomor + '<br/>BANK : ' + json['data'][0].bank );
+							$('#helprekening').html('NO. REKENING : ' + json['data'][0].nomor + '<br/>BANK : ' + json['data'][0].bank.toUpperCase() );
 							$('#hididrekening').val(json['data'][0].idrekening);
 							$('#helprekening').show();
 							
@@ -698,7 +698,7 @@ class Hutangpiutang extends CI_Controller {
 	  		$.post('".base_url('hutangpiutang/searchrekeningkode')."', { nomor_nota: $('#koderekening').val() }, function(data) {
 	  			var json = JSON.parse(data);
 				if(json['data'].length > 0) {
-					$('#helprekening').html('NO. REKENING : ' + json['data'][0].nomor + '<br/>BANK : ' + json['data'][0].bank );
+					$('#helprekening').html('NO. REKENING : ' + json['data'][0].nomor + '<br/>BANK : ' + json['data'][0].bank.toUpperCase() );
 					$('#hididrekening').val(json['data'][0].idrekening);
 					$('#helprekening').show();
 					

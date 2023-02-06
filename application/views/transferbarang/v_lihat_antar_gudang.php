@@ -105,7 +105,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }
 
                                echo ' '.strtoupper($b->satuan_besar);
@@ -117,7 +117,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }
 
                                echo ' '.strtoupper($b->satuan_kecil);

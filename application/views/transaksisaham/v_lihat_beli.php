@@ -100,7 +100,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }
                              } ?></td>
                           <td><a href="<?php echo base_url('transaksisaham/beli?id='.$b->nomor_nota); ?>" class="btn btn-info btn-sm btnedit"><i class="far fa-edit nav-icon"></i> EDIT</a>

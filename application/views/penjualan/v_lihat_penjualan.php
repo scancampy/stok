@@ -104,7 +104,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }
                              } ?></td>
                             <td><?php echo  strtoupper(strftime("%d %B %Y", strtotime($b->tanggal_jatuh_tempo))); ?></td>

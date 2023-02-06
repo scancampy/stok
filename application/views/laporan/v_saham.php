@@ -157,7 +157,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; ?></td>
                                <td><?php 
 
@@ -166,7 +166,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; ?></td>
                                <td><?php 
 
@@ -175,7 +175,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; ?></td>
                           </tr>
                           <?php
@@ -193,7 +193,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
                             <td><?php if($b->jenistrans == 'BELI') { 
                               
@@ -203,7 +203,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
                             <td><?php if($b->jenistrans == 'BELI') { 
                               
@@ -212,7 +212,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
                              <td><?php if($b->jenistrans == 'BELI') { 
                               $saldoawal -= $b->subtotalbeli;
@@ -221,7 +221,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
                                <td><?php if($b->jenistrans == 'JUAL') { 
                               
@@ -231,7 +231,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
                             <td><?php if($b->jenistrans == 'JUAL') { 
                               
@@ -242,7 +242,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
                             <td><?php if($b->jenistrans == 'JUAL') { 
                               
@@ -251,7 +251,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
                              <td><?php if($b->jenistrans == 'JUAL') { 
                               $saldoawal += $b->subtotaljual;
@@ -260,7 +260,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
                             <td><?php
                                 $h = strval($saldocolly);
@@ -268,7 +268,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }
                               ?></td>
                               <td><?php
@@ -277,7 +277,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }
                               ?></td>
                              
@@ -288,7 +288,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                };
                             ?>
                           </td>

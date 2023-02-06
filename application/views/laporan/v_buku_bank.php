@@ -136,7 +136,7 @@
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
                           </tr>
                           <?php
@@ -156,7 +156,7 @@
                              
                                echo number_format($arr[0],0,".",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }; } ?></td>
                             <td><?php if($b->kredit != '') {
                               $saldoawal -= $b->kredit; 
@@ -165,7 +165,7 @@
                              
                                echo number_format($arr[0],0,".",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                }
                              } ?></td>
                           <td>
@@ -175,7 +175,7 @@
                              
                                echo number_format($arr[0],0,".",".");
                                if(count($arr) > 1) {
-                                echo ','.$arr[1];
+                                echo ','.substr($arr[1],0,2);
                                };
                             ?>
                           </td>

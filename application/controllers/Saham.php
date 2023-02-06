@@ -109,12 +109,11 @@ $('#btnadd').on('click', function() {
 		// SAHAM SERUPA
 		$data['js'] .= "
 $('#kode').on('keyup change blur', function(event) {
-
 	var s = $(this).val();
 	if(s.trim() != '' ) {
 		$.post('".base_url('saham/search')."', { search:s }, function(data) {
 			var json = JSON.parse(data);
-
+			
 			if(json['data'].length > 0) {
 				var tableserupa = '';
 				var serupa=0;
@@ -127,10 +126,10 @@ $('#kode').on('keyup change blur', function(event) {
 					
 				}
 
-				if(serupa > 0) { $('#tableserupa').html(tableserupa); }
-				else { $('#tableserupa').html('<tr><td>-</td><td>-</td></tr>'); }				
+				if(serupa > 0) { $('#tablesahamserupa').html(tableserupa); }
+				else { $('#tablesahamserupa').html('<tr><td>-</td><td>-</td></tr>'); }				
 			} else {
-				$('#tableserupa').html('<tr><td>-</td><td>-</td></tr>');
+				$('#tablesahamserupa').html('<tr><td>-</td><td>-</td></tr>');
 			}
 		});
 	}

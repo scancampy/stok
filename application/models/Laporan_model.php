@@ -580,13 +580,13 @@ ORDER BY tanggal ASC");
 
 	public function getBukuBank($idrekening = '', $tglawal = '', $tglakhir = '') {
 		//CONCAT(transaksi_bank.keterangan_asal, ' ', transaksi_bank.keterangan_tujuan)
-		$h = $this->db->query("SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'HUTANG' as tipetrans, 'BAYAR HUTANG KE' as 'keterangantrans', pelanggan.kode AS 'kode', pelanggan.nama AS 'nama', hutangpiutang.keterangan, rekening.kode AS 'koderek', '' AS debit, hutangpiutang.nominal AS kredit, 'H' AS 'inisialkode'  
+		$h = $this->db->query("SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'HUTANG' as tipetrans, 'BAYAR HUTANG KE' as 'keterangantrans', pelanggan.kode AS 'kode', pelanggan.nama AS 'nama', pelanggan.nama AS 'keterangan', rekening.kode AS 'koderek', '' AS debit, hutangpiutang.nominal AS kredit, 'H' AS 'inisialkode'  
 FROM hutangpiutang 
 INNER JOIN pelanggan ON pelanggan.idpelanggan = hutangpiutang.idpelanggan
 INNER JOIN rekening ON rekening.idrekening = hutangpiutang.idrekening
 WHERE hutangpiutang.idrekening= $idrekening AND hutangpiutang.jenis = 'hutang' AND hutangpiutang.status = 'active' AND hutangpiutang.tanggal >= '$tglawal' AND hutangpiutang.tanggal <= '$tglakhir'
 UNION
-SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'PIUTANG' as tipetrans,  'PIUTANG DARI' as 'keterangantrans', pelanggan.kode AS 'kode', pelanggan.nama AS 'nama', hutangpiutang.keterangan, rekening.kode AS 'koderek', hutangpiutang.nominal AS debit, '' AS kredit , 'P' AS 'inisialkode'  
+SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'PIUTANG' as tipetrans,  'PIUTANG DARI' as 'keterangantrans', pelanggan.kode AS 'kode', pelanggan.nama AS 'nama', pelanggan.nama AS 'keterangan', rekening.kode AS 'koderek', hutangpiutang.nominal AS debit, '' AS kredit , 'P' AS 'inisialkode'  
 FROM hutangpiutang
 INNER JOIN pelanggan ON pelanggan.idpelanggan = hutangpiutang.idpelanggan
 INNER JOIN rekening ON rekening.idrekening = hutangpiutang.idrekening
@@ -609,13 +609,13 @@ ORDER BY tanggal ASC");
 	}
 
 	public function getSaldoAwal($idrekening = '', $tglawal = '') {
-		$h = $this->db->query("SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'HUTANG' as tipetrans, 'BAYAR HUTANG KE' as 'keterangantrans', pelanggan.kode AS 'kode', hutangpiutang.keterangan, rekening.kode AS 'koderek', '' AS debit, hutangpiutang.nominal AS kredit  
+		$h = $this->db->query("SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'HUTANG' as tipetrans, 'BAYAR HUTANG KE' as 'keterangantrans', pelanggan.kode AS 'kode', pelanggan.nama AS 'keterangan', rekening.kode AS 'koderek', '' AS debit, hutangpiutang.nominal AS kredit  
 FROM hutangpiutang 
 INNER JOIN pelanggan ON pelanggan.idpelanggan = hutangpiutang.idpelanggan
 INNER JOIN rekening ON rekening.idrekening = hutangpiutang.idrekening
 WHERE hutangpiutang.idrekening= $idrekening AND hutangpiutang.jenis = 'hutang' AND hutangpiutang.status = 'active' AND hutangpiutang.tanggal < '$tglawal'
 UNION
-SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'PIUTANG' as tipetrans,  'PIUTANG DARI' as 'keterangantrans', pelanggan.kode AS 'kode', hutangpiutang.keterangan, rekening.kode AS 'koderek', hutangpiutang.nominal AS debit, '' AS kredit 
+SELECT hutangpiutang.nomor_nota, hutangpiutang.tanggal, 'PIUTANG' as tipetrans,  'PIUTANG DARI' as 'keterangantrans', pelanggan.kode AS 'kode', pelanggan.nama AS 'keterangan', rekening.kode AS 'koderek', hutangpiutang.nominal AS debit, '' AS kredit 
 FROM hutangpiutang
 INNER JOIN pelanggan ON pelanggan.idpelanggan = hutangpiutang.idpelanggan
 INNER JOIN rekening ON rekening.idrekening = hutangpiutang.idrekening
