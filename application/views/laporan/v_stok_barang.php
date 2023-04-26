@@ -309,9 +309,9 @@
                                } else if($b->tipetrans == 'BELI') {
                                 $saldocolly += $b->jmlsatuanbesarmasuk;
                                } else if( $b->tipetrans == 'RETURBELI') {                           
-                                $saldocolly += $b->jmlsatuanbesarkeluar;
+                                $saldocolly -= $b->jmlsatuanbesarkeluar;
                                } else if($b->tipetrans == 'RETURJUAL') {
-                                $saldocolly -= $b->jmlsatuanbesarmasuk;
+                                $saldocolly += $b->jmlsatuanbesarmasuk;
                                } else if($b->tipetrans == 'HILANG') {
                                 $saldocolly -= $b->jmlsatuanbesarkeluar;
                                } else if($b->tipetrans=='TRANSKELUAR') {
@@ -336,9 +336,9 @@
                                } else if($b->tipetrans == 'BELI') {
                                 $saldojumlah += $b->jmlsatuankecilmasuk;
                                } else if( $b->tipetrans == 'RETURBELI') {                           
-                                $saldojumlah += $b->jmlsatuankecilkeluar;
+                                $saldojumlah -= $b->jmlsatuankecilkeluar;
                                } else if($b->tipetrans == 'RETURJUAL') {
-                                $saldojumlah -= $b->jmlsatuankecilmasuk;
+                                $saldojumlah += $b->jmlsatuankecilmasuk;
                                }  else if($b->tipetrans == 'HILANG') {
                                 $saldojumlah -= $b->jmlsatuankecilkeluar;
                                } else if($b->tipetrans=='TRANSKELUAR') {

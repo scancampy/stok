@@ -109,7 +109,7 @@
                               
                               $h = strval($b->jmlsatuanbesarbeli);
                                $arr = explode(".", $h);
-                               $saldocolly -= $b->jmlsatuanbesarbeli;
+                               $saldocolly += $b->jmlsatuanbesarbeli;
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
@@ -118,7 +118,7 @@
                             <td><?php if($b->jenistrans == 'BELI') { 
                               
                               $h = strval($b->jmlsatuankecilbeli);
-                              $saldojumlah -= $b->jmlsatuankecilbeli;
+                              $saldojumlah += $b->jmlsatuankecilbeli;
                                $arr = explode(".", $h);
                              
                                echo number_format($arr[0],0,",",".");
@@ -147,7 +147,7 @@
                               
                               $h = strval($b->jmlsatuanbesarjual);
                                $arr = explode(".", $h);
-                               $saldocolly += $b->jmlsatuanbesarjual;
+                               $saldocolly -= $b->jmlsatuanbesarjual;
                              
                                echo number_format($arr[0],0,",",".");
                                if(count($arr) > 1) {
@@ -157,7 +157,7 @@
                               
                               $h = strval($b->jmlsatuankeciljual);
 
-                              $saldojumlah += $b->jmlsatuankeciljual;
+                              $saldojumlah -= $b->jmlsatuankeciljual;
                                $arr = explode(".", $h);
                              
                                echo number_format($arr[0],0,",",".");

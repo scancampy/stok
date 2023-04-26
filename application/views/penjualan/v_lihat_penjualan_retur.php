@@ -94,7 +94,7 @@
                             <td>RJ<?php echo strtoupper($b->nomor_nota); ?></td>
                             <td><?php echo strtoupper($b->pelanggannama); ?></td>
                             <td><?php echo strtoupper(strftime("%d %B %Y", strtotime($b->tanggal))); ?></td>
-                            <td><?php echo 'Rp. '.number_format($totalharga[$key][0]->total, 3, ",","."); ?></td>
+                            <td><?php echo number_format($totalharga[$key][0]->total, 2, ",","."); ?></td>
                             <td><?php echo strtoupper($b->gudangnama); ?></td>
                           <td><a href="<?php echo base_url('penjualan/tambahretur?id='.$b->nomor_nota); ?>" class="btn btn-info btn-sm btnedit"><i class="far fa-edit nav-icon"></i> EDIT</a>
 
