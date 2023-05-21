@@ -128,6 +128,7 @@ barang_hilang.jumlah_besar AS jmlsatuanbesarkeluar, barang_hilang.jumlah_kecil A
 FROM barang_hilang
 INNER JOIN gudang ON gudang.idgudang = barang_hilang.idgudang_asal 
 WHERE barang_hilang.idbarang = $idbarang  AND barang_hilang.status = 'active' AND barang_hilang.tanggal >= '$tglawal' AND barang_hilang.tanggal <= '$tglakhir' $wheregudanghilangkeluar
+ORDER BY tanggal ASC;
 ");
 		
 	//	echo $this->db->last_query();
@@ -262,7 +263,7 @@ SELECT barang_hilang.tanggal AS tanggal, barang_hilang.nomor_nota, '' AS kode, '
 barang_hilang.jumlah_besar AS jmlsatuanbesarkeluar, barang_hilang.jumlah_kecil AS jmlsatuankecilkeluar, '' AS hargakeluar, '' AS subtotalkeluar
 FROM barang_hilang
 INNER JOIN gudang ON gudang.idgudang = barang_hilang.idgudang_asal 
-WHERE barang_hilang.idbarang = $idbarang  AND barang_hilang.status = 'active' AND barang_hilang.tanggal < '$tglawal' $wheregudanghilangkeluar");
+WHERE barang_hilang.idbarang = $idbarang  AND barang_hilang.status = 'active' AND barang_hilang.tanggal < '$tglawal' $wheregudanghilangkeluar ORDER BY tanggal ASC;");
 
 
 		return $h->result();
