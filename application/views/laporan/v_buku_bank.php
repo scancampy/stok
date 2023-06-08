@@ -112,8 +112,8 @@
                           <th>JENIS TRANSAKSI</th>
                           <th>NAMA</th>
                           <th>KETERANGAN</th>
-                          <th>DEBET</th>
-                          <th>KREDIT</th>
+                          <th class="sum">DEBET</th>
+                          <th class="sum">KREDIT</th>
                           <th >SALDO AKHIR</th>
                         </tr>
                         </thead>
@@ -185,6 +185,18 @@
                           ?>
                         <?php } ?>
                         </tbody>
+                         <tfoot>
+                        <tr>
+                          <th width="15%"></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th ></th>
+                        </tr>
+                        </tfoot>
                       </table>
                     </div>
                 </div>

@@ -112,14 +112,14 @@
                           <th >KET.</th>
                           <th >GUDANG</th>
                           <th>VALUTA</th>
-                          <th>COLLY BELI</th>
-                          <th>JML BELI</th>
-                          <th>HARGA BELI</th>
-                          <th>JML KREDIT</th>
-                          <th>COLLY JUAL</th>
-                          <th>JML JUAL</th>
-                          <th>HARGA JUAL</th>
-                          <th>JML DEBIT</th>
+                          <th class="sum">COLLY BELI</th>
+                          <th class="sum">JML BELI</th>
+                          <th class="sum">HARGA BELI</th>
+                          <th class="sum">JML KREDIT</th>
+                          <th class="sum">COLLY JUAL</th>
+                          <th class="sum">JML JUAL</th>
+                          <th class="sum">HARGA JUAL</th>
+                          <th class="sum">JML DEBIT</th>
                           <th >SALDO COLLY</th>
                           <th >SALDO KG</th>
                           <th style="width: 12%">SALDO AKHIR</th>
@@ -338,6 +338,26 @@
                           ?>
                         <?php } ?>
                         </tbody>
+                        <tfoot>
+                        <tr>
+                          <th style="" ></th>
+                          <th style="width: 10%"></th>
+                          <th ></th>
+                          <th ></th>
+                          <th></th>
+                          <th class="sum"></th>
+                          <th class="sum"></th>
+                          <th class="sum"></th>
+                          <th class="sum"></th>
+                          <th class="sum"></th>
+                          <th class="sum"></th>
+                          <th class="sum"></th>
+                          <th class="sum"></th>
+                          <th ></th>
+                          <th ></th>
+                          <th style="width: 12%"></th>
+                        </tr>
+                        </tfoot>
                       </table>
                     </div>
                 </div>

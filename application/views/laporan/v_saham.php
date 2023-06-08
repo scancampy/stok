@@ -104,26 +104,26 @@
                         <tr>
                           <th width="15%">TANGGAL</th>
                           <th>NOMOR NOTA</th>
-                          <th>JML. <?php 
+                          <th class="sum">JML. <?php 
                           if(isset($saham)) {
                             echo strtoupper($saham[0]->satuan_besar);
                           } ?> BELI</th>
-                          <th>JML. <?php 
+                          <th class="sum">JML. <?php 
                           if(isset($saham)) {
                             echo strtoupper($saham[0]->satuan_kecil);
                           } ?> BELI</th>
-                          <th >HARGA BELI</th>
-                          <th >SUBTOTAL BELI</th>
-                          <th>JML. <?php 
+                          <th class="sum">HARGA BELI</th>
+                          <th class="sum">SUBTOTAL BELI</th>
+                          <th class="sum">JML. <?php 
                           if(isset($saham)) {
                             echo strtoupper($saham[0]->satuan_besar);
                           } ?> JUAL</th>
-                          <th>JML. <?php 
+                          <th class="sum">JML. <?php 
                           if(isset($saham)) {
                             echo strtoupper($saham[0]->satuan_kecil);
                           } ?> JUAL</th>                          
-                          <th >HARGA JUAL</th>
-                          <th >SUBTOTAL JUAL</th>
+                          <th class="sum">HARGA JUAL</th>
+                          <th class="sum">SUBTOTAL JUAL</th>
                           <th>SALDO <?php 
                           if(isset($saham)) {
                             echo strtoupper($saham[0]->satuan_besar);
@@ -298,6 +298,23 @@
                           ?>
                         <?php } ?>
                         </tbody>
+                        <tfoot>
+                        <tr>
+                          <th width="15%"></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th ></th>
+                          <th ></th>
+                          <th></th>
+                          <th></th>                          
+                          <th ></th>
+                          <th ></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>  
+                        </tr>
+                        </tfoot>
                       </table>
                     </div>
                 </div>

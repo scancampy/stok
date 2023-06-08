@@ -143,15 +143,60 @@ class Laporan extends CI_Controller {
 
   	// DATA TABLE
 		$data['js'] .= "
+		function toFixed(value, precision) {
+		    var precision = precision || 0,
+		        power = Math.pow(10, precision),
+		        absValue = Math.abs(Math.round(value * power)),
+		        result = (value < 0 ? '-' : '') + String(Math.floor(absValue / power));
+
+		    if (precision > 0) {
+		        var fraction = String(absValue % power),
+		            padding = new Array(Math.max(precision - fraction.length, 0) + 1).join('0');
+		        result += '.' + padding + fraction;
+		    }
+		    return result;
+		}
+
+			function numberWithCommas(x) {
+			    x = x.toString();
+			    var pattern = /(-?\d+)(\d{3})/;
+			    while (pattern.test(x))
+			        x = x.replace(pattern, \"$1.$2\");
+			    return x;
+			}
+
 			$('#example2').DataTable({
 			  'paging': true,
-			  'lengthChange': false,
+			  'lengthChange': true,
 			  'searching': true,
 			  'pageLength': 25,
+			  lengthMenu: [
+	            [10, 25, 50, 100,-1],
+	            [10, 25, 50, 100,'All'],
+	        ],
 			  'ordering': false,
 			  'info': true,
 			  'autoWidth': false,
-			  'responsive': true,
+			  'responsive': false, 
+			  'footerCallback': function(row, data, start, end, display) {
+		    	  var api = this.api();
+				 
+				  api.columns('.sum', {
+				    page: 'current'
+				  }).every(function() {
+				    var sum = this
+				      .data()
+				      .reduce(function(a, b) {
+				        var x = parseFloat(a) || 0;
+				        var y = parseFloat(b.toString().replace(new RegExp(\"[.]\",\"g\"), '').replace(',','.')) || 0;
+				        console.log(x + '+' + y + '=' + (x+y));
+				        return x + y;
+				      }, 0);
+				      var hasil = toFixed(sum,2).toString().replace('.',',');
+
+				    $(this.footer()).html(numberWithCommas(hasil));
+				  });
+				}
 			});";
 
 			// FORM SUBMISSION
@@ -452,11 +497,37 @@ class Laporan extends CI_Controller {
 
   	// DATA TABLE
 		$data['js'] .= "
+		function toFixed(value, precision) {
+		    var precision = precision || 0,
+		        power = Math.pow(10, precision),
+		        absValue = Math.abs(Math.round(value * power)),
+		        result = (value < 0 ? '-' : '') + String(Math.floor(absValue / power));
+
+		    if (precision > 0) {
+		        var fraction = String(absValue % power),
+		            padding = new Array(Math.max(precision - fraction.length, 0) + 1).join('0');
+		        result += '.' + padding + fraction;
+		    }
+		    return result;
+		}
+
+			function numberWithCommas(x) {
+			    x = x.toString();
+			    var pattern = /(-?\d+)(\d{3})/;
+			    while (pattern.test(x))
+			        x = x.replace(pattern, \"$1.$2\");
+			    return x;
+			}
+
 			$('#example2').DataTable({
 			  'paging': true,
-			  'lengthChange': false,
+			  'lengthChange': true,
 			  'searching': true,
 			  'pageLength': 25,
+			  lengthMenu: [
+	            [10, 25, 50, 100,-1],
+	            [10, 25, 50, 100,'All'],
+	        ],
 			  'ordering': false,
 			  'info': true,
 			  'autoWidth': false,
@@ -472,7 +543,26 @@ class Laporan extends CI_Controller {
 		        { responsivePriority: 8, targets: 8 },
 		        { responsivePriority: 9, targets: 9 },
 		        { responsivePriority: 10, targets: 13 }
-		    ]
+		    ],
+		    'footerCallback': function(row, data, start, end, display) {
+		    	  var api = this.api();
+				 
+				  api.columns('.sum', {
+				    page: 'current'
+				  }).every(function() {
+				    var sum = this
+				      .data()
+				      .reduce(function(a, b) {
+				        var x = parseFloat(a) || 0;
+				        var y = parseFloat(b.toString().replace(new RegExp(\"[.]\",\"g\"), '').replace(',','.')) || 0;
+				        console.log(x + '+' + y + '=' + (x+y));
+				        return x + y;
+				      }, 0);
+				      var hasil = toFixed(sum,2).toString().replace('.',',');
+
+				    $(this.footer()).html(numberWithCommas(hasil));
+				  });
+				}
 			});";
 
 			// FORM SUBMISSION
@@ -783,13 +873,40 @@ class Laporan extends CI_Controller {
 
   	// DATA TABLE
 		$data['js'] .= "
+			function toFixed(value, precision) {
+		    var precision = precision || 0,
+		        power = Math.pow(10, precision),
+		        absValue = Math.abs(Math.round(value * power)),
+		        result = (value < 0 ? '-' : '') + String(Math.floor(absValue / power));
+
+		    if (precision > 0) {
+		        var fraction = String(absValue % power),
+		            padding = new Array(Math.max(precision - fraction.length, 0) + 1).join('0');
+		        result += '.' + padding + fraction;
+		    }
+		    return result;
+		}
+
+			function numberWithCommas(x) {
+			    x = x.toString();
+			    var pattern = /(-?\d+)(\d{3})/;
+			    while (pattern.test(x))
+			        x = x.replace(pattern, \"$1.$2\");
+			    return x;
+			}
+
+
 			$('#example2').DataTable({
-			  'paging': false,
-			  'lengthChange': false,
+			 'paging': true,
+			  'lengthChange': true,
 			  'searching': true,
+			  'pageLength': 25,
+			  lengthMenu: [
+	            [10, 25, 50, 100,-1],
+	            [10, 25, 50, 100,'All'],
+	        ],
 			  'ordering': false,
 			  'info': true,
-			  'pageLength': 25,
 			  'autoWidth': false,
 			  'responsive': false, 
 			  columnDefs: [
@@ -803,7 +920,25 @@ class Laporan extends CI_Controller {
 		        { responsivePriority: 8, targets: 9 },
 		        { responsivePriority: 9, targets: 6 },
 		        { responsivePriority: 10, targets: 10 }
-		    ]
+		    ],'footerCallback': function(row, data, start, end, display) {
+		    	  var api = this.api();
+				 
+				  api.columns('.sum', {
+				    page: 'current'
+				  }).every(function() {
+				    var sum = this
+				      .data()
+				      .reduce(function(a, b) {
+				        var x = parseFloat(a) || 0;
+				        var y = parseFloat(b.toString().replace(new RegExp(\"[.]\",\"g\"), '').replace(',','.')) || 0;
+				        console.log(x + '+' + y + '=' + (x+y));
+				        return x + y;
+				      }, 0);
+				      var hasil = toFixed(sum,2).toString().replace('.',',');
+
+				    $(this.footer()).html(numberWithCommas(hasil));
+				  });
+				}
 			});";
 
 			// FORM SUBMISSION
@@ -1077,15 +1212,60 @@ class Laporan extends CI_Controller {
 
   	// DATA TABLE
 		$data['js'] .= "
+		function toFixed(value, precision) {
+		    var precision = precision || 0,
+		        power = Math.pow(10, precision),
+		        absValue = Math.abs(Math.round(value * power)),
+		        result = (value < 0 ? '-' : '') + String(Math.floor(absValue / power));
+
+		    if (precision > 0) {
+		        var fraction = String(absValue % power),
+		            padding = new Array(Math.max(precision - fraction.length, 0) + 1).join('0');
+		        result += '.' + padding + fraction;
+		    }
+		    return result;
+		}
+
+			function numberWithCommas(x) {
+			    x = x.toString();
+			    var pattern = /(-?\d+)(\d{3})/;
+			    while (pattern.test(x))
+			        x = x.replace(pattern, \"$1.$2\");
+			    return x;
+			}
+
 			$('#example2').DataTable({
-			  'paging': true,
-			  'lengthChange': false,
+			 'paging': true,
+			  'lengthChange': true,
 			  'searching': true,
 			  'pageLength': 25,
+			  lengthMenu: [
+	            [10, 25, 50, 100,-1],
+	            [10, 25, 50, 100,'All'],
+	        ],
 			  'ordering': false,
 			  'info': true,
 			  'autoWidth': false,
-			  'responsive': false,
+			  'responsive': false, 
+			  'footerCallback': function(row, data, start, end, display) {
+		    	  var api = this.api();
+				 
+				  api.columns('.sum', {
+				    page: 'current'
+				  }).every(function() {
+				    var sum = this
+				      .data()
+				      .reduce(function(a, b) {
+				        var x = parseFloat(a) || 0;
+				        var y = parseFloat(b.toString().replace(new RegExp(\"[.]\",\"g\"), '').replace(',','.')) || 0;
+				        console.log(x + '+' + y + '=' + (x+y));
+				        return x + y;
+				      }, 0);
+				      var hasil = toFixed(sum,2).toString().replace('.',',');
+
+				    $(this.footer()).html(numberWithCommas(hasil));
+				  });
+				}
 			});";
 
 			// FORM SUBMISSION

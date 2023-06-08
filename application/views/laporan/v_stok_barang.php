@@ -126,26 +126,26 @@
                           <th>NOMOR NOTA</th>
                           <th>SUPPLIER / BUYER</th>
                           <th>GUDANG</th>
-                          <th>JML. <?php 
+                          <th class="sum">JML. <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_besar);
                           } ?> MASUK</th>
-                          <th>JML. <?php 
+                          <th class="sum">JML. <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_kecil);
                           } ?> MASUK</th>
-                          <th >HARGA MASUK</th>
-                          <th >SUBTOTAL MASUK</th>
-                          <th>JML. <?php 
+                          <th class="sum">HARGA MASUK</th>
+                          <th class="sum">SUBTOTAL MASUK</th>
+                          <th class="sum">JML. <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_besar);
                           } ?> KELUAR</th>
-                          <th>JML. <?php 
+                          <th class="sum">JML. <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_kecil);
                           } ?> KELUAR</th>                          
-                          <th >HARGA KELUAR</th>
-                          <th >SUBTOTAL KELUAR</th>
+                          <th class="sum">HARGA KELUAR</th>
+                          <th class="sum">SUBTOTAL KELUAR</th>
                           <th>SALDO <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_besar);
@@ -207,6 +207,11 @@
                           } 
                           //print_r($result);
                           foreach($result as $key => $b) { ?>
+                            <?php 
+                            //if($b->tipetrans=='TRANSKELUAR') {
+                              //print_r($b);
+                              //echo '<br/>';
+                            //} ?>
                           <tr>
                             <td style=" white-space: nowrap;"><?php echo strtoupper(strftime("%d %B %Y", strtotime($b->tanggal))); ?></td>
                             <td><?php echo strtoupper($b->inisialkode.$b->nomor_nota); ?></td>
@@ -342,9 +347,9 @@
                                }  else if($b->tipetrans == 'HILANG') {
                                 $saldojumlah -= $b->jmlsatuankecilkeluar;
                                } else if($b->tipetrans=='TRANSKELUAR') {
-                                $saldocolly -= $b->jmlsatuankecilkeluar;                                
-                               } else if($b->tipetrans=='TRANSMASUK') {
-                                $saldocolly += $b->jmlsatuankecilmasuk;                                
+                                $saldojumlah -= $b->jmlsatuankecilkeluar;
+                              } else if($b->tipetrans=='TRANSMASUK') {
+                                $saldojumlah += $b->jmlsatuankecilmasuk;                                
                                }
 
                                $h = strval($saldojumlah);
@@ -374,6 +379,37 @@
                           ?>
                         <?php } ?>
                         </tbody>
+                        <tfoot>
+                          <tr>
+                          <th width="15%"></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th class="sum" style="padding-left: 5px;">JML. <?php 
+                          if(isset($barang)) {
+                            echo strtoupper($barang[0]->satuan_besar);
+                          } ?> MASUK</th>
+                          <th class="sum" style="padding-left: 5px;">JML. <?php 
+                          if(isset($barang)) {
+                            echo strtoupper($barang[0]->satuan_kecil);
+                          } ?> MASUK</th>
+                          <th class="sum" style="padding-left: 5px;">HARGA MASUK</th>
+                          <th class="sum" style="padding-left: 5px;">SUBTOTAL MASUK</th>
+                          <th class="sum" style="padding-left: 5px;">JML. <?php 
+                          if(isset($barang)) {
+                            echo strtoupper($barang[0]->satuan_besar);
+                          } ?> KELUAR</th>
+                          <th class="sum" style="padding-left: 5px;">JML. <?php 
+                          if(isset($barang)) {
+                            echo strtoupper($barang[0]->satuan_kecil);
+                          } ?> KELUAR</th>                          
+                          <th class="sum" style="padding-left: 5px;">HARGA KELUAR</th>
+                          <th class="sum" style="padding-left: 5px;">SUBTOTAL KELUAR</th>
+                          <th> </th>
+                          <th></th>
+                          <th></th>  
+                        </tr>
+                        </tfoot>
                       </table>
                     </div>
                 </div>
