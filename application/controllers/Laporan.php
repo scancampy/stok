@@ -329,23 +329,68 @@ class Laporan extends CI_Controller {
 
   			foreach($data['result_awal'] as $key) {
   				if($key->tipetrans == 'JUAL') {
-  					$data['saldoawal'] += $key->subtotalkeluar;
-  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
-  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+  					if(!empty($key->subtotalkeluar)) {
+	  					$data['saldoawal'] += $key->subtotalkeluar;
+	  				}
+	  				if(!empty($key->jmlsatuanbesarkeluar)) {
+	  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
+	  				}
+	  				if(!empty($key->jmlsatuankecilkeluar)) {
+	  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+	  				}
   				} else if($key->tipetrans == 'BELI') {
-  					$data['saldoawal'] -= $key->subtotalmasuk;
-  					$data['saldocolly'] += $key->jmlsatuanbesarmasuk;
-  					$data['saldojumlah'] += $key->jmlsatuankecilmasuk;
-  				} else if($key->tipetrans == 'RETURJUAL') {
-  					$data['saldoawal'] += $key->subtotalkeluar;
-  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
-  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+  					if(!empty($key->subtotalmasuk)) {
+	  					$data['saldoawal'] -= $key->subtotalmasuk;
+	  				}
+	  				if(!empty($key->jmlsatuanbesarmasuk)) {
+	  					$data['saldocolly'] += $key->jmlsatuanbesarmasuk;
+	  				}
+	  				if(!empty($key->jmlsatuankecilmasuk)) {
+	  					$data['saldojumlah'] += $key->jmlsatuankecilmasuk;
+	  				}
   				} else if($key->tipetrans == 'RETURBELI') {
-  					$data['saldoawal'] -= $key->subtotalmasuk;
-  					$data['saldocolly'] += $key->jmlsatuanbesarmasuk;
-  					$data['saldojumlah'] += $key->jmlsatuankecilmasuk;
-  				}
-  			}	
+  					if(!empty($key->subtotalkeluar)) {
+	  					$data['saldoawal'] += $key->subtotalkeluar;
+	  				}
+	  				if(!empty($key->jmlsatuanbesarkeluar)) {
+	  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
+	  				}
+	  				if(!empty($key->jmlsatuankecilkeluar)) {
+	  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+	  				}
+  				} else if($key->tipetrans == 'RETURJUAL') {
+  					if(!empty($key->subtotalmasuk)) {
+	  					$data['saldoawal'] -= $key->subtotalmasuk;
+	  				}
+	  				if(!empty($key->jmlsatuanbesarmasuk)) {
+	  					$data['saldocolly'] += $key->jmlsatuanbesarmasuk;
+	  				}
+	  				if(!empty($key->jmlsatuanbesarmasuk)) {	  				
+	  					$data['saldojumlah'] += $key->jmlsatuankecilmasuk;
+	  				}
+  				} else if($key->tipetrans == 'HILANG') {
+  					if(!empty($key->jmlsatuanbesarkeluar)) {
+	  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
+	  				}
+	  				if(!empty($key->jmlsatuankecilkeluar)) {
+	  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+	  				}
+  				} else if($key->tipetrans == 'TRANSKELUAR') {
+  					if(!empty($key->jmlsatuanbesarkeluar)) {
+	  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
+	  				}
+	  				if(!empty($key->jmlsatuankecilkeluar)) {
+	  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+	  				}
+  				} else if($key->tipetrans == 'TRANSMASUK') {
+  					if(!empty($key->jmlsatuanbesarkeluar)) {
+	  					$data['saldocolly'] += $key->jmlsatuanbesarkeluar;
+	  				}
+	  				if(!empty($key->jmlsatuankecilkeluar)) {
+	  					$data['saldojumlah'] += $key->jmlsatuankecilkeluar;
+	  				}
+  				} 
+  			}		
   		
   	} else {
   		redirect('laporan/stokbarang');
@@ -363,8 +408,13 @@ class Laporan extends CI_Controller {
 	    $datejual = explode(" ", $this->input->get('fromtanggal'));
 	    $dtanggal = $datejual[2].'-'.$months[$datejual[1]].'-'.$datejual[0];
   		   	
+  		   	//echo $dtanggal; 
+
 			$datetempo = explode(" ", $this->input->get('untiltanggal'));
 			$duntil = $datetempo[2].'-'.$months[$datetempo[1]].'-'.$datetempo[0];
+			//echo '<br/>';
+			//echo $duntil;
+			//die();
 			$data['barang'] = $this->barang_model->getKodeAll($this->input->get('idbarang'));  
 			if(count($data['barang']) ==0) {
 				$this->session->set_flashdata('msg', true);
@@ -380,30 +430,66 @@ class Laporan extends CI_Controller {
 
   			foreach($data['result_awal'] as $key) {
   				if($key->tipetrans == 'JUAL') {
-  					$data['saldoawal'] += $key->subtotalkeluar;
-  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
-  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+  					if(!empty($key->subtotalkeluar)) {
+	  					$data['saldoawal'] += $key->subtotalkeluar;
+	  				}
+	  				if(!empty($key->jmlsatuanbesarkeluar)) {
+	  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
+	  				}
+	  				if(!empty($key->jmlsatuankecilkeluar)) {
+	  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+	  				}
   				} else if($key->tipetrans == 'BELI') {
-  					$data['saldoawal'] -= $key->subtotalmasuk;
-  					$data['saldocolly'] += $key->jmlsatuanbesarmasuk;
-  					$data['saldojumlah'] += $key->jmlsatuankecilmasuk;
+  					if(!empty($key->subtotalmasuk)) {
+	  					$data['saldoawal'] -= $key->subtotalmasuk;
+	  				}
+	  				if(!empty($key->jmlsatuanbesarmasuk)) {
+	  					$data['saldocolly'] += $key->jmlsatuanbesarmasuk;
+	  				}
+	  				if(!empty($key->jmlsatuankecilmasuk)) {
+	  					$data['saldojumlah'] += $key->jmlsatuankecilmasuk;
+	  				}
   				} else if($key->tipetrans == 'RETURBELI') {
-  					$data['saldoawal'] += $key->subtotalkeluar;
-  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
-  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+  					if(!empty($key->subtotalkeluar)) {
+	  					$data['saldoawal'] += $key->subtotalkeluar;
+	  				}
+	  				if(!empty($key->jmlsatuanbesarkeluar)) {
+	  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
+	  				}
+	  				if(!empty($key->jmlsatuankecilkeluar)) {
+	  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+	  				}
   				} else if($key->tipetrans == 'RETURJUAL') {
-  					$data['saldoawal'] -= $key->subtotalmasuk;
-  					$data['saldocolly'] += $key->jmlsatuanbesarmasuk;
-  					$data['saldojumlah'] += $key->jmlsatuankecilmasuk;
+  					if(!empty($key->subtotalmasuk)) {
+	  					$data['saldoawal'] -= $key->subtotalmasuk;
+	  				}
+	  				if(!empty($key->jmlsatuanbesarmasuk)) {
+	  					$data['saldocolly'] += $key->jmlsatuanbesarmasuk;
+	  				}
+	  				if(!empty($key->jmlsatuanbesarmasuk)) {	  				
+	  					$data['saldojumlah'] += $key->jmlsatuankecilmasuk;
+	  				}
   				} else if($key->tipetrans == 'HILANG') {
-  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
-  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+  					if(!empty($key->jmlsatuanbesarkeluar)) {
+	  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
+	  				}
+	  				if(!empty($key->jmlsatuankecilkeluar)) {
+	  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+	  				}
   				} else if($key->tipetrans == 'TRANSKELUAR') {
-  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
-  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+  					if(!empty($key->jmlsatuanbesarkeluar)) {
+	  					$data['saldocolly'] -= $key->jmlsatuanbesarkeluar;
+	  				}
+	  				if(!empty($key->jmlsatuankecilkeluar)) {
+	  					$data['saldojumlah'] -= $key->jmlsatuankecilkeluar;
+	  				}
   				} else if($key->tipetrans == 'TRANSMASUK') {
-  					$data['saldocolly'] += $key->jmlsatuanbesarkeluar;
-  					$data['saldojumlah'] += $key->jmlsatuankecilkeluar;
+  					if(!empty($key->jmlsatuanbesarkeluar)) {
+	  					$data['saldocolly'] += $key->jmlsatuanbesarkeluar;
+	  				}
+	  				if(!empty($key->jmlsatuankecilkeluar)) {
+	  					$data['saldojumlah'] += $key->jmlsatuankecilkeluar;
+	  				}
   				} 
   			}	
   		
@@ -690,33 +776,73 @@ class Laporan extends CI_Controller {
 
   			foreach($data['result_awal'] as $key) {
   				if($key->jenistrans == 'JUAL') {
-  					$data['saldoawal'] += $key->debit;
-  					$data['saldocolly'] -= $key->collyjual;
-  					$data['saldojumlah'] -= $key->jmljual;
+  					if(!empty($key->debit)) {
+	  					$data['saldoawal'] += $key->debit;
+	  				}
+	  				if(!empty($key->collyjual)) {
+	  					$data['saldocolly'] -= $key->collyjual;
+	  				}
+	  				if(!empty($key->jmljual)) {
+	  					$data['saldojumlah'] -= $key->jmljual;
+	  				}
   				} else if($key->jenistrans == 'BELI') {
-  					$data['saldoawal'] -= $key->kredit;
-  					$data['saldocolly'] += $key->collybeli;
-  					$data['saldojumlah'] += $key->jmlbeli;
+  					if(!empty($key->kredit)) {
+	  					$data['saldoawal'] -= $key->kredit;
+	  				}
+  					if(!empty($key->collybeli)) {
+	  					$data['saldocolly'] += $key->collybeli;
+	  				}
+	  				if(!empty($key->jmlbeli)) {
+	  					$data['saldojumlah'] += $key->jmlbeli;
+	  				}
   				} else if($key->jenistrans == 'RETURJUAL') {
-  					$data['saldoawal'] -= $key->kredit;
-  					$data['saldocolly'] += $key->collybeli;
-  					$data['saldojumlah'] += $key->jmlbeli;
+  					if(!empty($key->kredit)) {
+	  					$data['saldoawal'] -= $key->kredit;
+	  				}
+	  				if(!empty($key->collybeli)) {
+	  					$data['saldocolly'] += $key->collybeli;
+	  				}
+	  				if(!empty($key->jmlbeli)) {
+	  					$data['saldojumlah'] += $key->jmlbeli;
+	  				}
   				} else if($key->jenistrans == 'RETURBELI') {
-  					$data['saldoawal'] += $key->debit;
-  					$data['saldocolly'] -= $key->collyjual;
-  					$data['saldojumlah'] -= $key->jmljual;
+  					if(!empty($key->debit)) {
+	  					$data['saldoawal'] += $key->debit;
+	  				}
+	  				if(!empty($key->collyjual)) {
+	  					$data['saldocolly'] -= $key->collyjual;
+	  				}
+	  				if(!empty($key->jmljual)) {
+	  					$data['saldojumlah'] -= $key->jmljual;
+	  				}
   				} else if($key->jenistrans == 'TERIMA PIUTANG') {
-  					$data['saldoawal'] -= $key->kredit;
+  					if(!empty($key->jmljual)) {
+	  					$data['saldoawal'] -= $key->jmljual;
+	  				}
   				} else if($key->jenistrans == 'BAYAR HUTANG') {
-  					$data['saldoawal'] += $key->debit;
+  					if(!empty($key->debit)) {
+	  					$data['saldoawal'] += $key->debit;
+	  				}
   				} else if($key->jenistrans == 'JUAL SAHAM') {
-  					$data['saldocolly'] -= $key->collyjual;
-  					$data['saldojumlah'] -= $key->jmljual;
-  					$data['saldoawal'] += $key->debit;
+  					if(!empty($key->collyjual)) {
+	  					$data['saldocolly'] -= $key->collyjual;
+	  				}
+	  				if(!empty($key->jmljual)) {
+	  					$data['saldojumlah'] -= $key->jmljual;
+	  				}
+  					if(!empty($key->debit)) {
+	  					$data['saldoawal'] += $key->debit;
+	  				}
   				} else if($key->jenistrans == 'BELI SAHAM') {
-  					$data['saldoawal'] -= $key->kredit;
-  					$data['saldocolly'] += $key->collybeli;
-  					$data['saldojumlah'] += $key->jmlbeli;
+  					if(!empty($key->kredit)) {
+	  					$data['saldoawal'] -= $key->kredit;
+	  				}
+	  				if(!empty($key->collybeli)) {
+	  					$data['saldocolly'] += $key->collybeli;
+	  				}
+	  				if(!empty($key->jmlbeli)) {
+	  					$data['saldojumlah'] += $key->jmlbeli;
+	  				}
   				}
   			}	
   		
@@ -754,33 +880,73 @@ class Laporan extends CI_Controller {
 
   			foreach($data['result_awal'] as $key) {
   				if($key->jenistrans == 'JUAL') {
-  					$data['saldoawal'] += $key->debit;
-  					$data['saldocolly'] -= $key->collyjual;
-  					$data['saldojumlah'] -= $key->jmljual;
+  					if(!empty($key->debit)) {
+	  					$data['saldoawal'] += $key->debit;
+	  				}
+	  				if(!empty($key->collyjual)) {
+	  					$data['saldocolly'] -= $key->collyjual;
+	  				}
+	  				if(!empty($key->jmljual)) {
+	  					$data['saldojumlah'] -= $key->jmljual;
+	  				}
   				} else if($key->jenistrans == 'BELI') {
-  					$data['saldoawal'] -= $key->kredit;
-  					$data['saldocolly'] += $key->collybeli;
-  					$data['saldojumlah'] += $key->jmlbeli;
+  					if(!empty($key->kredit)) {
+	  					$data['saldoawal'] -= $key->kredit;
+	  				}
+  					if(!empty($key->collybeli)) {
+	  					$data['saldocolly'] += $key->collybeli;
+	  				}
+	  				if(!empty($key->jmlbeli)) {
+	  					$data['saldojumlah'] += $key->jmlbeli;
+	  				}
   				} else if($key->jenistrans == 'RETURJUAL') {
-  					$data['saldoawal'] -= $key->kredit;
-  					$data['saldocolly'] += $key->collybeli;
-  					$data['saldojumlah'] += $key->jmlbeli;
+  					if(!empty($key->kredit)) {
+	  					$data['saldoawal'] -= $key->kredit;
+	  				}
+	  				if(!empty($key->collybeli)) {
+	  					$data['saldocolly'] += $key->collybeli;
+	  				}
+	  				if(!empty($key->jmlbeli)) {
+	  					$data['saldojumlah'] += $key->jmlbeli;
+	  				}
   				} else if($key->jenistrans == 'RETURBELI') {
-  					$data['saldoawal'] += $key->debit;
-  					$data['saldocolly'] -= $key->collyjual;
-  					$data['saldojumlah'] -= $key->jmljual;
+  					if(!empty($key->debit)) {
+	  					$data['saldoawal'] += $key->debit;
+	  				}
+	  				if(!empty($key->collyjual)) {
+	  					$data['saldocolly'] -= $key->collyjual;
+	  				}
+	  				if(!empty($key->jmljual)) {
+	  					$data['saldojumlah'] -= $key->jmljual;
+	  				}
   				} else if($key->jenistrans == 'TERIMA PIUTANG') {
-  					$data['saldoawal'] -= $key->kredit;
+  					if(!empty($key->jmljual)) {
+	  					$data['saldoawal'] -= $key->jmljual;
+	  				}
   				} else if($key->jenistrans == 'BAYAR HUTANG') {
-  					$data['saldoawal'] += $key->debit;
+  					if(!empty($key->debit)) {
+	  					$data['saldoawal'] += $key->debit;
+	  				}
   				} else if($key->jenistrans == 'JUAL SAHAM') {
-  					$data['saldocolly'] -= $key->collyjual;
-  					$data['saldojumlah'] -= $key->jmljual;
-  					$data['saldoawal'] += $key->debit;
+  					if(!empty($key->collyjual)) {
+	  					$data['saldocolly'] -= $key->collyjual;
+	  				}
+	  				if(!empty($key->jmljual)) {
+	  					$data['saldojumlah'] -= $key->jmljual;
+	  				}
+  					if(!empty($key->debit)) {
+	  					$data['saldoawal'] += $key->debit;
+	  				}
   				} else if($key->jenistrans == 'BELI SAHAM') {
-  					$data['saldoawal'] -= $key->kredit;
-  					$data['saldocolly'] += $key->collybeli;
-  					$data['saldojumlah'] += $key->jmlbeli;
+  					if(!empty($key->kredit)) {
+	  					$data['saldoawal'] -= $key->kredit;
+	  				}
+	  				if(!empty($key->collybeli)) {
+	  					$data['saldocolly'] += $key->collybeli;
+	  				}
+	  				if(!empty($key->jmlbeli)) {
+	  					$data['saldojumlah'] += $key->jmlbeli;
+	  				}
   				}
   			}	
   		
@@ -1075,14 +1241,25 @@ class Laporan extends CI_Controller {
 
 		foreach($data['resultawal'] as $key) {
 			if($key->jenistrans =='JUAL') {
-				$data['saldoawal'] += $key->subtotaljual;
-				$data['saldocolly'] -= $key->jmlsatuanbesarjual;
-				$data['saldojumlah'] -= $key->jmlsatuankeciljual;
+				if(!empty($key->subtotaljual)) {
+					$data['saldoawal'] += $key->subtotaljual;
+				}
+				if(!empty($key->jmlsatuanbesarjual)) {
+					$data['saldocolly'] -= $key->jmlsatuanbesarjual;
+				}
+				if(!empty($key->jmlsatuankeciljual)) {
+					$data['saldojumlah'] -= $key->jmlsatuankeciljual;
+				}
 			} else if($key->jenistrans == 'BELI') {
-				$data['saldoawal'] -= $key->subtotalbeli;
-
-				$data['saldocolly'] += $key->jmlsatuanbesarbeli;
-				$data['saldojumlah'] += $key->jmlsatuankecilbeli;
+				if(!empty($key->subtotalbeli)) {
+					$data['saldoawal'] -= $key->subtotalbeli;
+				}
+				if(!empty($key->jmlsatuanbesarbeli)) {
+					$data['saldocolly'] += $key->jmlsatuanbesarbeli;
+				}
+				if(!empty($key->jmlsatuankecilbeli)) {
+					$data['saldojumlah'] += $key->jmlsatuankecilbeli;
+				}
 			}
 		}
   	} else {
@@ -1117,14 +1294,25 @@ class Laporan extends CI_Controller {
 
   			foreach($data['resultawal'] as $key) {
   				if($key->jenistrans =='JUAL') {
-  					$data['saldoawal'] += $key->subtotaljual;
-  					$data['saldocolly'] -= $key->jmlsatuanbesarjual;
-  					$data['saldojumlah'] -= $key->jmlsatuankeciljual;
+  					if(!empty($key->subtotaljual)) {
+	  					$data['saldoawal'] += $key->subtotaljual;
+	  				}
+	  				if(!empty($key->jmlsatuanbesarjual)) {
+	  					$data['saldocolly'] -= $key->jmlsatuanbesarjual;
+	  				}
+	  				if(!empty($key->jmlsatuankeciljual)) {
+	  					$data['saldojumlah'] -= $key->jmlsatuankeciljual;
+	  				}
   				} else if($key->jenistrans == 'BELI') {
-  					$data['saldoawal'] -= $key->subtotalbeli;
-
-  					$data['saldocolly'] += $key->jmlsatuanbesarbeli;
-  					$data['saldojumlah'] += $key->jmlsatuankecilbeli;
+  					if(!empty($key->subtotalbeli)) {
+	  					$data['saldoawal'] -= $key->subtotalbeli;
+	  				}
+	  				if(!empty($key->jmlsatuanbesarbeli)) {
+	  					$data['saldocolly'] += $key->jmlsatuanbesarbeli;
+	  				}
+	  				if(!empty($key->jmlsatuankecilbeli)) {
+	  					$data['saldojumlah'] += $key->jmlsatuankecilbeli;
+	  				}
   				}
   			}
   		}

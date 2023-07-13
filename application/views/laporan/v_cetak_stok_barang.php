@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>CETAK STOK BARANG - <?php strtoupper(echo date('d M Y')); ?></title>
+	<title>CETAK STOK BARANG - <?php strtoupper(date('d M Y')); ?></title>
   <link rel="stylesheet" href="<?php echo base_url('css/adminlte.min.css'); ?>">
   <style type="text/css">
   	@media print{ @page { size: landscape;  } }
@@ -25,33 +25,33 @@
 			</div>
 
 			<div class="col-md-12">
-         <table id="example2" class="table table-bordered table-hover">
+      <table id="example2" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                           <th width="15%">TANGGAL</th>
                           <th>NOMOR NOTA</th>
                           <th>SUPPLIER / BUYER</th>
                           <th>GUDANG</th>
-                          <th>JML. <?php 
+                          <th class="sum">JML. <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_besar);
                           } ?> MASUK</th>
-                          <th>JML. <?php 
+                          <th class="sum">JML. <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_kecil);
                           } ?> MASUK</th>
-                          <th >HARGA MASUK</th>
-                          <th >SUBTOTAL MASUK</th>
-                          <th>JML. <?php 
+                          <th class="sum">HARGA MASUK</th>
+                          <th class="sum">SUBTOTAL MASUK</th>
+                          <th class="sum">JML. <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_besar);
                           } ?> KELUAR</th>
-                          <th>JML. <?php 
+                          <th class="sum">JML. <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_kecil);
                           } ?> KELUAR</th>                          
-                          <th >HARGA KELUAR</th>
-                          <th >SUBTOTAL KELUAR</th>
+                          <th class="sum">HARGA KELUAR</th>
+                          <th class="sum">SUBTOTAL KELUAR</th>
                           <th>SALDO <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_besar);
@@ -111,12 +111,17 @@
                           </tr>
                           <?php
                           } 
-
+                          //print_r($result);
                           foreach($result as $key => $b) { ?>
+                            <?php 
+                            //if($b->tipetrans=='TRANSKELUAR') {
+                              //print_r($b);
+                              //echo '<br/>';
+                            //} ?>
                           <tr>
-                            <td><?php echo strtoupper(strftime("%d %B %Y", strtotime($b->tanggal))); ?></td>
+                            <td style=" white-space: nowrap;"><?php echo strtoupper(strftime("%d %B %Y", strtotime($b->tanggal))); ?></td>
                             <td><?php echo strtoupper($b->inisialkode.$b->nomor_nota); ?></td>
-                            <td><?php echo strtoupper($b->kode); ?></td>
+                            <td><?php echo strtoupper($b->namapelanggan); ?></td>
                             <td><?php echo strtoupper($b->nama); ?></td>
                             <td><?php if($b->jmlsatuanbesarmasuk != '') { 
                               $h = strval($b->jmlsatuanbesarmasuk);
@@ -215,9 +220,15 @@
                                } else if($b->tipetrans == 'BELI') {
                                 $saldocolly += $b->jmlsatuanbesarmasuk;
                                } else if( $b->tipetrans == 'RETURBELI') {                           
-                                $saldocolly -= $b->jmlsatuanbesarmasuk;
+                                $saldocolly -= $b->jmlsatuanbesarkeluar;
                                } else if($b->tipetrans == 'RETURJUAL') {
-                                $saldocolly += $b->jmlsatuanbesarkeluar;
+                                $saldocolly += $b->jmlsatuanbesarmasuk;
+                               } else if($b->tipetrans == 'HILANG') {
+                                $saldocolly -= $b->jmlsatuanbesarkeluar;
+                               } else if($b->tipetrans=='TRANSKELUAR') {
+                                $saldocolly -= $b->jmlsatuanbesarkeluar;                                
+                               } else if($b->tipetrans=='TRANSMASUK') {
+                                $saldocolly += $b->jmlsatuanbesarmasuk;                                
                                }
 
                                $h = strval($saldocolly);
@@ -236,14 +247,21 @@
                                } else if($b->tipetrans == 'BELI') {
                                 $saldojumlah += $b->jmlsatuankecilmasuk;
                                } else if( $b->tipetrans == 'RETURBELI') {                           
-                                $saldojumlah -= $b->jmlsatuankecilmasuk;
+                                $saldojumlah -= $b->jmlsatuankecilkeluar;
                                } else if($b->tipetrans == 'RETURJUAL') {
-                                $saldojumlah += $b->jmlsatuankecilkeluar;
+                                $saldojumlah += $b->jmlsatuankecilmasuk;
+                               }  else if($b->tipetrans == 'HILANG') {
+                                $saldojumlah -= $b->jmlsatuankecilkeluar;
+                               } else if($b->tipetrans=='TRANSKELUAR') {
+                                $saldojumlah -= $b->jmlsatuankecilkeluar;
+                              } else if($b->tipetrans=='TRANSMASUK') {
+                                $saldojumlah += $b->jmlsatuankecilmasuk;                                
                                }
 
                                $h = strval($saldojumlah);
+
                                  $arr = explode(".", $h);
-                               
+                              //  echo $h.'<br/>';
                                  echo number_format($arr[0],0,",",".");
                                  if(count($arr) > 1) {
                                   echo ','.substr($arr[1],0,2);
@@ -267,8 +285,41 @@
                           ?>
                         <?php } ?>
                         </tbody>
-                      </table>   
-         </div>
+                        <tfoot>
+                          <tr>
+                          <th width="15%"></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th class="sum" style="padding-left: 5px;">JML. <?php 
+                          if(isset($barang)) {
+                            echo strtoupper($barang[0]->satuan_besar);
+                          } ?> MASUK</th>
+                          <th class="sum" style="padding-left: 5px;">JML. <?php 
+                          if(isset($barang)) {
+                            echo strtoupper($barang[0]->satuan_kecil);
+                          } ?> MASUK</th>
+                          <th class="sum" style="padding-left: 5px;">HARGA MASUK</th>
+                          <th class="sum" style="padding-left: 5px;">SUBTOTAL MASUK</th>
+                          <th class="sum" style="padding-left: 5px;">JML. <?php 
+                          if(isset($barang)) {
+                            echo strtoupper($barang[0]->satuan_besar);
+                          } ?> KELUAR</th>
+                          <th class="sum" style="padding-left: 5px;">JML. <?php 
+                          if(isset($barang)) {
+                            echo strtoupper($barang[0]->satuan_kecil);
+                          } ?> KELUAR</th>                          
+                          <th class="sum" style="padding-left: 5px;">HARGA KELUAR</th>
+                          <th class="sum" style="padding-left: 5px;">SUBTOTAL KELUAR</th>
+                          <th> </th>
+                          <th></th>
+                          <th></th>  
+                        </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  
+      </div>
 		</div>
 	</div>
 	
