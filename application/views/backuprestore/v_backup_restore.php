@@ -46,11 +46,18 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <div class="form-group">
-                    <label for="filerestore">UPLOAD FILE BACKUP</label>
-                    <input type="file"  name="filerestore"  class="form-control" id="filerestore" />
+                  <div id="showloader" style="text-align:center; display: none;">
+                   <div class="loader"></div>
+                   <p>DB is restoring. Please wait.</p>
+                 </div>
+
+                 <div id="divfilerestore">
+                    <div class="form-group">
+                      <label for="filerestore">UPLOAD FILE BACKUP</label>
+                      <input type="file"  name="filerestore"  class="form-control" id="filerestore" />
+                    </div>
+                    <button value="submit" name="btnrestore" id="btnrestore" class="btn btn-primary">RESTORE DATABASE</button>
                   </div>
-                  <button value="submit" name="btnrestore" class="btn btn-primary">RESTORE DATABASE</button>
                 </div>
               </div>
 
@@ -67,3 +74,20 @@
   </div>
   <!-- /.content-wrapper -->
 
+<style type="text/css">
+  .loader {
+    margin-left: auto;
+    margin-right: auto;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>

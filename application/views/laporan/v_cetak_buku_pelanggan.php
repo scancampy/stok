@@ -5,9 +5,12 @@
 	<title>CETAK BUKU PELANGGAN - <?php echo strtoupper(date('d M Y')); ?></title>
   <link rel="stylesheet" href="<?php echo base_url('css/adminlte.min.css'); ?>">
   <style type="text/css">
-  	@media print{ @page { size: landscape;  } }
+  	@media print{ @page { size: A4 landscape;  } }
 
-  	table { font-size: 9pt; }
+   table { font-size: 8pt;   width:100% !important; border-collapse: collapse; }
+    table, th, td {
+  border: 1px solid;
+}
   </style>
 </head>
 <body>
@@ -20,11 +23,11 @@
 
 			<div class="col-md-12">
                   
-                     <table id="example2"  class="table table-bordered table-hover" >
+                     <table id="example2"   >
                         <thead>
                         <tr>
                           <th style="" >TGL. TRF.</th>
-                          <th style="width: 10%">NO. TRANS.</th>
+                          <th >NO. TRANS.</th>
                           <th >KET.</th>
                           <th >GUDANG</th>
                           <th>VALUTA</th>
@@ -256,22 +259,22 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                          <th style="" ></th>
-                          <th style="width: 10%"></th>
-                          <th ></th>
-                          <th ></th>
-                          <th></th>
-                          <th class="sum"></th>
-                          <th class="sum"></th>
-                          <th class="sum"></th>
-                          <th class="sum"></th>
-                          <th class="sum"></th>
-                          <th class="sum"></th>
-                          <th class="sum"></th>
-                          <th class="sum"></th>
-                          <th ></th>
-                          <th ></th>
-                          <th style="width: 12%"></th>
+                          <th style="" >TGL. TRF.</th>
+                          <th >NO. TRANS.</th>
+                          <th >KET.</th>
+                          <th >GUDANG</th>
+                          <th>VALUTA</th>
+                          <th class="sum">COLLY BELI</th>
+                          <th class="sum">JML BELI</th>
+                          <th class="sum">HARGA BELI</th>
+                          <th class="sum">JML KREDIT</th>
+                          <th class="sum">COLLY JUAL</th>
+                          <th class="sum">JML JUAL</th>
+                          <th class="sum">HARGA JUAL</th>
+                          <th class="sum">JML DEBIT</th>
+                          <th >SALDO COLLY</th>
+                          <th >SALDO KG</th>
+                          <th style="width: 12%">SALDO AKHIR</th>
                         </tr>
                         </tfoot>
                       </table>

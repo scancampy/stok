@@ -72,8 +72,13 @@ var Toast = Swal.mixin({
 
 		
 
-	
-
+		// TOMBOL RESTORE
+		$data['js'] .= "
+			$('#btnrestore').on('click', function() {
+				$('#divfilerestore').hide();
+				$('#showloader').show();
+			});
+		";
     	// SWEET ALERT
     	if($this->session->flashdata('restore_success')) { 
     	$data['js'] .= "

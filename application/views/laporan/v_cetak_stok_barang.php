@@ -5,9 +5,12 @@
 	<title>CETAK STOK BARANG - <?php strtoupper(date('d M Y')); ?></title>
   <link rel="stylesheet" href="<?php echo base_url('css/adminlte.min.css'); ?>">
   <style type="text/css">
-  	@media print{ @page { size: landscape;  } }
+  	@media print{ @page { size: A4 landscape;  } }
 
-  	table { font-size: 9pt; }
+  	table { font-size: 8pt;   width:100% !important; border-collapse: collapse; }
+    table, th, td {
+  border: 1px solid;
+}
   </style>
 </head>
 <body>
@@ -25,42 +28,42 @@
 			</div>
 
 			<div class="col-md-12">
-      <table id="example2" class="table table-bordered table-hover">
+      <table id="example2" class="">
                         <thead>
                         <tr>
-                          <th width="15%">TANGGAL</th>
-                          <th>NOMOR NOTA</th>
-                          <th>SUPPLIER / BUYER</th>
-                          <th>GUDANG</th>
-                          <th class="sum">JML. <?php 
+                          <th width="5%" >TANGGAL</th>
+                          <th width="5%">NOMOR NOTA</th>
+                          <th width="5%">SUPPLIER / BUYER</th>
+                          <th width="5%">GUDANG</th>
+                          <th class="sum" width="5%">JML. <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_besar);
                           } ?> MASUK</th>
-                          <th class="sum">JML. <?php 
+                          <th width="5%" class="sum">JML. <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_kecil);
                           } ?> MASUK</th>
-                          <th class="sum">HARGA MASUK</th>
-                          <th class="sum">SUBTOTAL MASUK</th>
-                          <th class="sum">JML. <?php 
+                          <th width="5%" class="sum">HARGA MASUK</th>
+                          <th width="5%" class="sum">SUBTOTAL MASUK</th>
+                          <th width="5%" class="sum">JML. <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_besar);
                           } ?> KELUAR</th>
-                          <th class="sum">JML. <?php 
+                          <th width="5%" class="sum">JML. <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_kecil);
                           } ?> KELUAR</th>                          
-                          <th class="sum">HARGA KELUAR</th>
-                          <th class="sum">SUBTOTAL KELUAR</th>
-                          <th>SALDO <?php 
+                          <th width="5%" class="sum">HARGA KELUAR</th>
+                          <th width="5%" class="sum">SUBTOTAL KELUAR</th>
+                          <th width="5%">SALDO <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_besar);
                           } ?></th>
-                          <th>SALDO <?php 
+                          <th width="5%">SALDO <?php 
                           if(isset($barang)) {
                             echo strtoupper($barang[0]->satuan_kecil);
                           } ?></th>
-                          <th>SALDO AKHIR</th>  
+                          <th width="5%">SALDO AKHIR</th>  
                         </tr>
                         </thead>
                         <tbody>

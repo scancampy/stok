@@ -1,13 +1,16 @@
-w<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>CETAK BUKU BANK - <?php echo strtoupper(date('d M Y')); ?></title>
   <link rel="stylesheet" href="<?php echo base_url('css/adminlte.min.css'); ?>">
   <style type="text/css">
-  	@media print{ @page { size: landscape;  } }
+    @media print{ @page { size: A4 landscape;  } }
 
-  	table { font-size: 9pt; }
+   table { font-size: 8pt;   width:100% !important; border-collapse: collapse; }
+    table, th, td {
+  border: 1px solid;
+}
   </style>
 </head>
 <body>
@@ -20,10 +23,10 @@ w<!DOCTYPE html>
 
 			<div class="col-md-12">
                   <table>
-                    <table id="example2" class="table table-bordered table-hover">
+                    <table id="example2" >
                         <thead>
                         <tr>
-                          <th width="15%">TGL. TRANS.</th>
+                          <th>TGL. TRANS.</th>
                           <th>NO. TRANS.</th>
                           <th>JENIS TRANSAKSI</th>
                           <th>NAMA</th>
@@ -101,6 +104,18 @@ w<!DOCTYPE html>
                           ?>
                         <?php } ?>
                         </tbody>
+                        <tfoot>
+                          <tr>
+                            <th>TGL. TRANS.</th>
+                            <th>NO. TRANS.</th>
+                            <th>JENIS TRANSAKSI</th>
+                            <th>NAMA</th>
+                            <th>KETERANGAN</th>
+                            <th>DEBET</th>
+                            <th>KREDIT</th>
+                            <th >SALDO AKHIR</th>
+                          </tr>
+                        </tfoot>
                       </table>
                     </div>
                 </div>

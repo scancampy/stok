@@ -5,9 +5,12 @@
 	<title>CETAK SAHAM - <?php echo strtoupper(date('d M Y')); ?></title>
   <link rel="stylesheet" href="<?php echo base_url('css/adminlte.min.css'); ?>">
   <style type="text/css">
-  	@media print{ @page { size: landscape;  } }
+  	@media print{ @page { size: A4 landscape;  } }
 
-  	table { font-size: 9pt; }
+  	table { font-size: 8pt;   width:100% !important; border-collapse: collapse; }
+    table, th, td {
+  border: 1px solid;
+}
   </style>
 </head>
 <body>
@@ -19,7 +22,7 @@
 			</div>
 
 			<div class="col-md-12">
-                  <table id="example2" class="table table-bordered table-hover">
+                  <table id="example2" class="">
                         <thead>
                         <tr>
                           <th width="15%">TANGGAL</th>
@@ -220,19 +223,37 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                          <th width="15%"></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th ></th>
-                          <th ></th>
-                          <th></th>
-                          <th></th>                          
-                          <th ></th>
-                          <th ></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>  
+                          <th width="15%">TANGGAL</th>
+                          <th>NOMOR NOTA</th>
+                          <th class="sum">JML. <?php 
+                          if(isset($saham)) {
+                            echo strtoupper($saham[0]->satuan_besar);
+                          } ?> BELI</th>
+                          <th class="sum">JML. <?php 
+                          if(isset($saham)) {
+                            echo strtoupper($saham[0]->satuan_kecil);
+                          } ?> BELI</th>
+                          <th class="sum">HARGA BELI</th>
+                          <th class="sum">SUBTOTAL BELI</th>
+                          <th class="sum">JML. <?php 
+                          if(isset($saham)) {
+                            echo strtoupper($saham[0]->satuan_besar);
+                          } ?> JUAL</th>
+                          <th class="sum">JML. <?php 
+                          if(isset($saham)) {
+                            echo strtoupper($saham[0]->satuan_kecil);
+                          } ?> JUAL</th>                          
+                          <th class="sum">HARGA JUAL</th>
+                          <th class="sum">SUBTOTAL JUAL</th>
+                          <th>SALDO <?php 
+                          if(isset($saham)) {
+                            echo strtoupper($saham[0]->satuan_besar);
+                          } ?></th>
+                          <th>SALDO <?php 
+                          if(isset($saham)) {
+                            echo strtoupper($saham[0]->satuan_kecil);
+                          } ?></th>
+                          <th>SALDO AKHIR</th>   
                         </tr>
                         </tfoot>
                       </table>
