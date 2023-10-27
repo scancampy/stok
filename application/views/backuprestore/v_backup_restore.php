@@ -24,8 +24,8 @@
       <div class="container-fluid">
         <div class="row">
           
-            <div class="col-md-6">
-              <div class="card">
+            <div class="col-md-4">
+              <div class="card" style="height: 250px;">
                 <div class="card-header" >
                   <div class='col-md-12 d-flex justify-content-between'>
                     <h3 class="card-title">BACKUP DB</h3>
@@ -38,8 +38,8 @@
               </div>
 
             </div>
-            <div class="col-md-6">
-              <div class="card">
+            <div class="col-md-4" >
+              <div class="card" style="height: 250px;">
                 <div class="card-header" >
                   <div class='col-md-12 d-flex justify-content-between'>
                     <h3 class="card-title">RESTORE DB</h3>
@@ -58,6 +58,21 @@
                     </div>
                     <button value="submit" name="btnrestore" id="btnrestore" class="btn btn-primary">RESTORE DATABASE</button>
                   </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-4" >
+              <div class="card " style="height: 250px;">
+                <div class="card-header" >
+                  <div class='col-md-12 d-flex justify-content-between'>
+                    <h3 class="card-title">RESET DB</h3>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <p>TEKAN TOMBOL UNTUK MULAI MELAKUKAN RESET DATABASE</p>
+                  <p><strong>Warning!</strong> Reset Database akan menghapus semua data anda. Proses ini tidak bisa dibatalkan.</p>
+                  <button value="submit" name="btnreset" onclick="return confirm('Yakin reset database?'); " class="btn btn-danger">RESET DATABASE</button>
                 </div>
               </div>
 

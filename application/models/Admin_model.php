@@ -54,6 +54,32 @@ class Admin_model extends CI_Model {
 		$this->db->update('admin', array('status' => 'deleted'));
 	}
 
+	public function resetdb() {
+		$this->db->truncate('barang');
+		$this->db->truncate('barang_hilang');
+		$this->db->truncate('detil_pembelian');
+		$this->db->truncate('detil_pembelian_saham');
+		$this->db->truncate('detil_penjualan');
+		$this->db->truncate('detil_penjualan_saham');
+		$this->db->truncate('detil_retur_pembelian');
+		$this->db->truncate('detil_retur_penjualan');
+		$this->db->truncate('gudang');
+		$this->db->truncate('hutangpiutang');
+		$this->db->truncate('kota');
+		$this->db->truncate('kurs');
+		$this->db->truncate('pelanggan');
+		$this->db->truncate('pembelian');
+		$this->db->truncate('pembelian_saham');
+		$this->db->truncate('penjualan');
+		$this->db->truncate('penjualan_saham');
+		$this->db->truncate('rekening');
+		$this->db->truncate('retur_pembelian');
+		$this->db->truncate('retur_penjualan');
+		$this->db->truncate('saham');
+		$this->db->truncate('transaksi_bank');
+		$this->db->truncate('transfer_barang');
+	}
+
 	public function backupdb() {
 
        $tables = $this->db->list_tables();

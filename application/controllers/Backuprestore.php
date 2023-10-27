@@ -21,6 +21,11 @@ class Backuprestore extends CI_Controller {
 			$this->admin_model->backupdb();
 		}
 
+		if($this->input->post('btnreset')) {
+			$this->session->set_flashdata('db_reset', true);
+			$this->admin_model->resetdb();
+		}
+
 		if($this->input->post('btnrestore')) {
 			$config['file_name'] = 'restore_'.date('Y-m-dh-i-s').'.sql';
 			$config['upload_path']          = './restore/';
@@ -94,6 +99,15 @@ var Toast = Swal.mixin({
   Toast.fire({
     icon: 'success',
     title: 'Backup database berhasil dilakukan.'
+  });
+    	";
+    	}
+
+    	if($this->session->flashdata('db_reset')) { 
+    	$data['js'] .= "
+  Toast.fire({
+    icon: 'success',
+    title: 'Database berhasil direset.'
   });
     	";
     	}
