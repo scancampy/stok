@@ -24,7 +24,8 @@ class Welcome extends CI_Controller {
 		if ($result->num_rows ==0) {	
 			//echo 'this';
 			//die();
-		    $query = "CREATE DATABASE IF NOT EXISTS `k3990590_stok_new` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;";
+		    $query = "
+CREATE DATABASE IF NOT EXISTS `k3990590_stok_new` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
 			$result = $conn->query($query);
 			//print_r($result); 
@@ -60,19 +61,6 @@ class Welcome extends CI_Controller {
   `jumlah_satuan` double NOT NULL DEFAULT 1,
   `satuan_besar` varchar(50) NOT NULL,
   `satuan_kecil` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
-			$result = $conn->query($query);
-
-			$query = "
-			CREATE TABLE `barang_hilang` (
-  `nomor_nota` varchar(30) NOT NULL,
-  `idgudang_asal` int(11) NOT NULL,
-  `idbarang` bigint(20) NOT NULL,
-  `jumlah_besar` double NOT NULL,
-  `jumlah_kecil` double NOT NULL,
-  `keterangan` text NOT NULL,
-  `tanggal` datetime NOT NULL,
-  `status` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 			$result = $conn->query($query);
 
